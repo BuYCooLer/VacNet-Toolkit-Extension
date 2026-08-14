@@ -1,0 +1,449 @@
+{
+  "extensionName": {
+    "message": "VacNet Toolkit Extension"
+  },
+  "extensionDescription": {
+    "message": "Мощное расширение для VacNet сайта, с удобным интерфейсом, разблокированными функциями, и удобными твиками."
+  },
+  "cs2VideoReview": {
+    "message": "Проверка клипов CS2"
+  },
+  "inviteReviewers": {
+    "message": "Пригласить"
+  },
+  "noInvites": {
+    "message": "Приглашения недоступны. Продолжайте проверять клипы, чтобы получить больше приглашений."
+  },
+  "clipsLabeled": {
+    "message": "Проверено клипов:"
+  },
+  "logout": {
+    "message": "Выйти"
+  },
+  "watchClipInstructions": {
+    "message": "Ознакомьтесь с информацией ниже:"
+  },
+  "xrayActive": {
+    "message": "X-Ray режим просмотра за игроками включён для проверяющего."
+  },
+  "verdictTrainingNotice": {
+    "message": "Ваш вердикт напрямую не повлияет на игрока. Метки могут использоваться для обучения будущих моделей VACNet."
+  },
+  "uncertainNotice": {
+    "message": "Ожидаемо, что вы часто будете выбирать «Не уверен». При любом другом выборе убедитесь в своем решении."
+  },
+  "clipSelectionNotice": {
+    "message": "Выборка клипов не является репрезентативной выборкой игрового процесса."
+  },
+  "questionAimAssist": {
+    "message": "Использует ли подозреваемый помощь в прицеливании для резкого наведения на противников или мгновенной стрельбы при появлении противника в прицеле?"
+  },
+  "questionWallHack": {
+    "message": "Использует ли подозреваемый просмотр сквозь стены, пол, дым, ослепление или другие препятствия, чтобы видеть противников?"
+  },
+  "questionAutoBhop": {
+    "message": "Использует ли подозреваемый помощь для точного выбора момента прыжка при приземлении, чтобы увеличить скорость передвижения?"
+  },
+  "questionBot": {
+    "message": "Выглядит ли подозреваемый полностью автоматизированным?"
+  },
+  "labelAimAssist": {
+    "message": "Помощь в прицеливании"
+  },
+  "labelWallHack": {
+    "message": "Видит сквозь стены"
+  },
+  "labelAutoBhop": {
+    "message": "Автопрыжок"
+  },
+  "labelBot": {
+    "message": "Бот-игрок"
+  },
+  "btnYes": {
+    "message": "Да"
+  },
+  "btnUncertain": {
+    "message": "Не уверен"
+  },
+  "btnNo": {
+    "message": "Нет"
+  },
+  "btnProceed": {
+    "message": "Продолжить"
+  },
+  "btnBack": {
+    "message": "Назад"
+  },
+  "btnConfirm": {
+    "message": "Подтвердить"
+  },
+  "statusSubmitting": {
+    "message": "Отправка..."
+  },
+  "statusPleaseWait": {
+    "message": "Подождите..."
+  },
+  "btnSendFeedback": {
+    "message": "Отправить отзыв"
+  },
+  "btnReportBadClip": {
+    "message": "Сообщить о плохом клипе"
+  },
+  "clipDetails": {
+    "message": "Детали клипа"
+  },
+  "taskId": {
+    "message": "ID задания"
+  },
+  "app": {
+    "message": "Приложение"
+  },
+  "none": {
+    "message": "нет"
+  },
+  "devMetricsTitle": {
+    "message": "Метрики разработчика"
+  },
+  "emptyClientSnapshot": {
+    "message": "Данные в клиентском снимке отсутствуют"
+  },
+  "notFound": {
+    "message": "не найдено"
+  },
+  "clipDataTitle": {
+    "message": "Данные клипа"
+  },
+  "webmUrl": {
+    "message": "URL WebM"
+  },
+  "videoJsRuntime": {
+    "message": "Среда выполнения Video.js"
+  },
+  "playerId": {
+    "message": "ID плеера"
+  },
+  "version": {
+    "message": "Версия"
+  },
+  "language": {
+    "message": "Язык"
+  },
+  "debug": {
+    "message": "Отладка"
+  },
+  "enabled": {
+    "message": "включена"
+  },
+  "disabled": {
+    "message": "выключена"
+  },
+  "byAuthor": {
+    "message": "| by MartinDawgor"
+  },
+  "closeDashboard": {
+    "message": "Закрыть панель"
+  },
+  "closeClipDetails": {
+    "message": "Закрыть детали клипа"
+  },
+  "reviewInstructions": {
+    "message": "Инструкции к проверке"
+  },
+  "verdictTitle": {
+    "message": "Оцените запись игры и определите наличие стороннего ПО, скриптов или автоматизации у подозреваемого."
+  },
+  "verdict": {
+    "message": "Вердикт"
+  },
+  "btnSubmit": {
+    "message": "Отправить вердикт"
+  },
+  "btnSkip": {
+    "message": "Пропустить клип"
+  },
+  "statusLoadingNextClip": {
+    "message": "Загружается следующий клип..."
+  },
+  "errorNextClipMissing": {
+    "message": "Ответ сервера не содержит следующего клипа"
+  },
+  "errorPlayerOrFormUnavailable": {
+    "message": "Плеер или форма недоступны"
+  },
+  "errorServerResponse": {
+    "message": "Сервер вернул {status}"
+  },
+  "errorNextClipLoad": {
+    "message": "Не удалось загрузить следующий клип: {error}"
+  },
+  "videoJsPlay": {
+    "message": "Воспроизвести"
+  },
+  "videoJsPause": {
+    "message": "Пауза"
+  },
+  "videoJsMute": {
+    "message": "Выключить звук"
+  },
+  "videoJsUnmute": {
+    "message": "Включить звук"
+  },
+  "videoJsFullscreen": {
+    "message": "Полный экран"
+  },
+  "videoJsExitFullscreen": {
+    "message": "Выйти из полноэкранного режима"
+  },
+  "videoJsClose": {
+    "message": "Закрыть"
+  },
+  "videoJsVideoPlayer": {
+    "message": "Видеоплеер"
+  },
+  "videoJsProgressBar": {
+    "message": "Шкала воспроизведения"
+  },
+  "videoJsVolumeLevel": {
+    "message": "Громкость"
+  },
+  "videoJsPlaybackRate": {
+    "message": "Скорость воспроизведения"
+  },
+  "videoJsCaptions": {
+    "message": "Субтитры"
+  },
+  "videoJsSubtitles": {
+    "message": "Субтитры"
+  },
+  "videoJsReset": {
+    "message": "Сбросить"
+  },
+  "videoJsDone": {
+    "message": "Готово"
+  },
+  "sourceCs2VideoReview": {
+    "message": "CS2 Video Review"
+  },
+  "sourceInviteReviewers": {
+    "message": "Invite Reviewers"
+  },
+  "sourceNoInvites": {
+    "message": "You have no invites available. Earn more by continuing to label clips."
+  },
+  "sourceClipsLabeled": {
+    "message": "Clips Labeled:"
+  },
+  "sourceLogout": {
+    "message": "Logout"
+  },
+  "sourceWatchClipInstructions": {
+    "message": "Please watch the clip with audio and answer the question(s) presented."
+  },
+  "sourceXrayActive": {
+    "message": "X-Ray is active."
+  },
+  "sourceVerdictTrainingNotice": {
+    "message": "The player you are watching will not be directly affected by your verdict. Rather, labels may be used to train future VACNet models."
+  },
+  "sourceUncertainNotice": {
+    "message": "It is fine (and expected) that you will often select \"Uncertain.\" Please be certain if you make any other selection."
+  },
+  "sourceClipSelectionNotice": {
+    "message": "Clip selection is not a representative sample of gameplay."
+  },
+  "sourceQuestionAimAssist": {
+    "message": "Is the Suspect using Aim Assist to snap to opponents or instantly firing when an opponent enters the Suspect's crosshair?"
+  },
+  "sourceQuestionWallHack": {
+    "message": "Is the Suspect using Wall Hacks to see enemy players through walls, floors, smokes, while flashed, or other obstacles?"
+  },
+  "sourceQuestionAutoBhop": {
+    "message": "Is the Suspect using assistance to time their jump inputs at the exact moment they land to increase movement speed?"
+  },
+  "sourceQuestionBot": {
+    "message": "Does the Suspect look fully automated?"
+  },
+  "sourceLabelAimAssist": {
+    "message": "Aim Assist"
+  },
+  "sourceLabelWallHack": {
+    "message": "Wall Hack"
+  },
+  "sourceLabelAutoBhop": {
+    "message": "Auto BHop"
+  },
+  "sourceLabelBot": {
+    "message": "Bot Player"
+  },
+  "sourceBtnUncertain": {
+    "message": "Uncertain"
+  },
+  "sourceBtnProceed": {
+    "message": "Proceed"
+  },
+  "sourceBtnBack": {
+    "message": "Back"
+  },
+  "sourceBtnConfirm": {
+    "message": "Confirm"
+  },
+  "sourceStatusSubmitting": {
+    "message": "Submitting..."
+  },
+  "sourceStatusPleaseWait": {
+    "message": "Please Wait..."
+  },
+  "sourceBtnSendFeedback": {
+    "message": "Send Feedback"
+  },
+  "sourceBtnReportBadClip": {
+    "message": "Report Bad Clip"
+  },
+  "sourceClipDetails": {
+    "message": "Clip Details"
+  },
+  "sourceTaskId": {
+    "message": "Task ID"
+  },
+  "sourceApp": {
+    "message": "App"
+  },
+  "sourceNone": {
+    "message": "none"
+  },
+  "sourceDevMetricsTitle": {
+    "message": "Developer Metrics"
+  },
+  "stretchVideo": {
+    "message": "Растянуть видео"
+  },
+  "clipLogTitle": {
+    "message": "Журнал видео"
+  },
+  "clipLogSummary": {
+    "message": "Статистика журнала"
+  },
+  "totalClipsViewed": {
+    "message": "Всего просмотрено"
+  },
+  "savedInLocalHistory": {
+    "message": "Сохранено в локальной истории"
+  },
+  "savedClips": {
+    "message": "Оцененные клипы"
+  },
+  "clipRepeats": {
+    "message": "Повторов"
+  },
+  "recentClips": {
+    "message": "Последние видео"
+  },
+  "noClipHistory": {
+    "message": "История клипов пуста"
+  },
+  "badClip": {
+    "message": "Плохой клип"
+  },
+  "clipIdentityStatus": {
+    "message": "Статус идентификации"
+  },
+  "clipStatusNewVideo": {
+    "message": "Новый VOD, новый клип"
+  },
+  "clipStatusSameVideoDifferentClip": {
+    "message": "Тот же VOD, другой клип"
+  },
+  "clipStatusExactDuplicate": {
+    "message": "Точный дубликат оцененного клипа"
+  },
+  "videoId": {
+    "message": "ID видео"
+  },
+  "clipRange": {
+    "message": "Отрезок клипа"
+  },
+  "eventTime": {
+    "message": "Время события"
+  },
+  "clipCountAtSubmission": {
+    "message": "Счетчик при отправке"
+  },
+  "clipKey": {
+    "message": "Композитный ключ клипа"
+  },
+  "clipSummaryVideo": {
+    "message": "Видео"
+  },
+  "clipSummaryMoment": {
+    "message": "Клип"
+  },
+  "clipSummaryRange": {
+    "message": "Отрезок"
+  },
+  "clipSummaryNew": {
+    "message": "Новый"
+  },
+  "clipSummaryRepeat": {
+    "message": "Повтор"
+  },
+  "clipSummaryChecking": {
+    "message": "Проверка"
+  },
+  "savedVideos": {
+    "message": "Видео в истории"
+  },
+  "historyTasks": {
+    "message": "заданий"
+  },
+  "historyVideo": {
+    "message": "Видео"
+  },
+  "historyClip": {
+    "message": "Клип"
+  },
+  "historyClipCount": {
+    "message": "Клипов"
+  },
+  "openVideo": {
+    "message": "Открыть видео"
+  },
+  "clipNumber": {
+    "message": "Клип"
+  },
+  "processedAt": {
+    "message": "Обработан"
+  },
+  "technicalData": {
+    "message": "Технические данные"
+  },
+  "playerCount": {
+    "message": "Плееров"
+  },
+  "frameDuration": {
+    "message": "Длительность кадра"
+  },
+  "previousVerdicts": {
+    "message": "Предыдущие вердикты"
+  },
+  "autoApplyRepeatVerdicts": {
+    "message": "Автовердикт"
+  },
+  "autoApplyRepeatVerdictsHint": {
+    "message": "Автоматически подставлять последний вердикт для повторного видео"
+  },
+  "clearVideoHistory": {
+    "message": "Очистить историю"
+  },
+  "clearVideoHistoryHint": {
+    "message": "Удалить все сохраненные видео, клипы и счетчик повторов"
+  },
+  "copyMetrics": {
+    "message": "Копировать метрики"
+  },
+  "copyMetricsHint": {
+    "message": "Копировать все собранные данные и метрики текущего видео"
+  },
+  "hotkeyHelp": {
+    "message": "R: начало клипа · Z: масштаб · Пробел: пауза · Enter: отправить · Стрелки: покадрово"
+  }
+}

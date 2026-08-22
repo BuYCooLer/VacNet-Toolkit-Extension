@@ -1,0 +1,130 @@
+.dashboard {
+  position: absolute;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  padding: 16px;
+  box-sizing: border-box;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+}
+
+.dashboard>header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 16px 20px;
+  box-sizing: border-box;
+  color: var(--text);
+  background: var(--panel);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px 8px 0 0;
+}
+
+.dashboard h2,
+.dashboard h3 {
+  margin: 0;
+  color: var(--accent);
+}
+
+.dashboard h2 {
+  min-width: 0;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.dashboard h2 small {
+  margin-left: 8px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.dashboard h3 {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.content {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 14px;
+  overflow: auto;
+  box-sizing: border-box;
+  color: var(--text);
+  background: var(--panel);
+  border-radius: 0 0 8px 8px;
+}
+
+.history .content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.action,
+.close {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.action:focus-visible,
+.close:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.action {
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+
+.close {
+  color: #fff;
+  border: 0;
+  font-size: 22px;
+}
+
+.action:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.action:focus-visible,
+.close:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .dashboard {
+    width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
+  }
+}

@@ -1,0 +1,235 @@
+.panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 16px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+}
+
+.panel h1 {
+  margin: 0 0 6px;
+  padding-bottom: 8px;
+  color: var(--accent);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 15px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.category {
+  margin: 0;
+  padding: 8px 0;
+  border: 0;
+}
+
+.category legend {
+  width: 100%;
+  text-align: center;
+  padding-top: 2px;
+  margin-bottom: 0px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 6px;
+}
+
+.choice {
+  position: relative;
+  display: grid;
+  min-height: 30px;
+  place-items: center;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.choice:first-child {
+  border-radius: 7px 0 0 7px;
+}
+
+.choice:last-child {
+  border-radius: 0 7px 7px 0;
+}
+
+.choice input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.choice:focus-within {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.actions button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.positive:has(input:checked) {
+  color: #ffe0e0;
+  background: #9d4144;
+}
+
+.skip:has(input:checked) {
+  color: #f1f1f1;
+  background: #5b5c60;
+}
+
+.negative:has(input:checked) {
+  color: #d8ffe4;
+  background: #367a50;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.infoGridSingle {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.infoGrid .previous,
+.infoGridSingle .previous {
+  margin-top: 0;
+}
+
+.previous {
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 7px;
+}
+
+.previous h2 {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.previous dl {
+  margin: 0;
+}
+
+.previous dl>div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 2px 0;
+  font-size: 12.5px;
+}
+
+.valPositive {
+  color: #ff7676;
+}
+
+.valNegative {
+  color: #5ce68b;
+}
+
+.valSkip {
+  color: #f1f1f1;
+}
+
+.previous dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.error,
+.status {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.error {
+  color: #ffd7d7;
+  background: rgba(157, 65, 68, 0.35);
+  border: 1px solid rgba(255, 159, 159, 0.55);
+}
+
+.status {
+  color: var(--text);
+  background: #45464a;
+  border: 1px solid #65666a;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.actions button {
+  min-height: 36px;
+  color: var(--text);
+  background: linear-gradient(135deg, #7eaf3d, #5d8d22);
+  border: 1px solid transparent;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+.actions button:last-child {
+  background: #45464a;
+  border-color: #65666a;
+}
+
+.actions button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.clipCount {
+  margin-top: auto;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  padding-top: 10px;
+}
+
+@media (max-width: 520px) {
+  .panel {
+    padding: 12px;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .choice,
+  .actions button {
+    min-height: 44px;
+  }
+}

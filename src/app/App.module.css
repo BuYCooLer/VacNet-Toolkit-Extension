@@ -1,0 +1,148 @@
+.appShell {
+  display: contents;
+  color: var(--text);
+}
+
+.videoToolbar {
+  position: fixed;
+  top: 8px;
+  left: 50%;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.videoToolbar>button,
+.hoverDropdown>button {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  box-sizing: border-box;
+  color: var(--text);
+  background: var(--panel-raised);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 5px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+}
+
+.videoToolbar>button:hover:not(.active),
+.hoverDropdown>button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.videoToolbar>button.active {
+  color: #fff;
+  background: #4e7124;
+  border-color: var(--border);
+}
+
+.videoToolbar button:focus-visible,
+.hoverDropdown>button:focus-visible,
+.footerTools a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.hoverDropdown {
+  position: relative;
+}
+
+
+
+.hoverDropdown:hover>.dropdownContent,
+.hoverDropdown:focus-within>.dropdownContent {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.15s;
+}
+
+.dropdownContent {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  transition-delay: 0s;
+  width: max-content;
+  max-width: min(380px, calc(100vw - 32px));
+  transform: translateX(-50%);
+  padding: 14px;
+  box-sizing: border-box;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 7px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.dropdownContent hr {
+  margin: 9px 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdownList {
+  margin: 0;
+  padding: 0 0 0 22px;
+  list-style-type: disc;
+  text-align: left;
+}
+
+.dropdownList li {
+  margin: 8px 0;
+  color: #dedede;
+  line-height: 1.4;
+}
+
+.footerTools {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(160px);
+  display: flex;
+  gap: 20px;
+  pointer-events: auto;
+  z-index: 9999;
+}
+
+.footerTools a {
+  padding: 0;
+  color: #7eaf3d;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.footerTools a:hover {
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .videoToolbar {
+    gap: 4px;
+    max-width: calc(100vw - 16px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .videoToolbar>button,
+  .hoverDropdown>button {
+    width: 28px;
+    height: 28px;
+  }
+
+  .footerTools {
+    left: auto;
+    right: 10px;
+    transform: none;
+  }
+}

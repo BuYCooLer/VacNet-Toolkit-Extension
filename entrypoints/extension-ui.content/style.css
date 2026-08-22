@@ -1,0 +1,48 @@
+:host {
+  all: initial;
+  --accent: #a7d46f;
+  --panel: #202123;
+  --panel-raised: #313234;
+  --text: #f0f0f0;
+  --muted: #a9aaad;
+  --border: rgba(167, 212, 111, 0.42);
+  color: var(--text) !important;
+  color-scheme: dark !important;
+  font-family: Calibri, Candara, Segoe, Geneva, Tahoma, Arial, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  visibility: visible !important;
+}
+
+button,
+summary,
+a,
+div,
+section,
+aside,
+header,
+dl,
+dt,
+dd,
+p,
+h2,
+h3,
+small,
+strong {
+  box-sizing: border-box;
+  color: inherit;
+}
+
+button,
+summary,
+a {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

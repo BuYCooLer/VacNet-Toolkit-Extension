@@ -93,6 +93,8 @@ export class PlyrAdapter implements ReviewPlayerPort {
        await metadata;
         if (!this.lifecycle.isCurrent(generation)) throw new DOMException('Aborted', 'AbortError');
        video.currentTime = this.range.start;
+       const t = this.catalog();
+       this.instance.updateMarker(clip, t?.triggerMarkerLabel ?? '');
        await waitForPlyrTargetData(video, this.range.start, operationSignal);
         if (!this.lifecycle.isCurrent(generation)) throw new DOMException('Aborted', 'AbortError');
        await this.play(video);

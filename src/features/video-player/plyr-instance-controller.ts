@@ -61,6 +61,23 @@ export class PlyrInstanceController {
     return this.host.video;
   }
 
+  updateMarker(clip: ClipData | null, markerLabel: string): void {
+    if (!this.plyr || !this.host?.element) return;
+    const progressContainer = this.host.element.querySelector('.plyr__progress');
+    if (!progressContainer) return;
+
+    progressContainer.querySelectorAll('.plyr__progress__marker').forEach(el => el.remove());
+
+    if (clip?.eventTime != null && this.host.video.duration) {
+      const left = (clip.eventTime / this.host.video.duration) * 100;
+      const marker = document.createElement('span');
+      marker.className = 'plyr__progress__marker';
+      marker.title = markerLabel;
+      marker.style.left = `${left}%`;
+      progressContainer.appendChild(marker);
+    }
+  }
+
   applyPreferences(preferences: Preferences | null): void {
     if (!preferences || !this.host) return;
     this.host.element.classList.toggle('vacnet-keep-controls', preferences.keepControlsVisible);

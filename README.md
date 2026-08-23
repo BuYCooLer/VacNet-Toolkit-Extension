@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="public/icon.png" alt="VACNET Toolkit" width="100">
+  <img src="public/icon.png" alt="VACNET Toolkit" width="96">
   <br>
   VACNET Toolkit Extension
   <br>
@@ -11,12 +11,11 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/Лицензия-MIT-green?style=flat-square"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/Лицензия-GPL%203.0-blue?style=flat-square"></a>
 </p>
 
 <p align="center">
-  <sub>⚠️ <b>Внимание:</b> Проект официально распространяется <b>только</b> в данном репозитории. Автором проекта является <a href="https://github.com/MartinDawgor"><b>MartinDawgor</b></a>, и все права принадлежат ему. Любая публикация от чужого имени, несанкционированное копирование или перепродажа запрещены для защиты пользователей и репозитория. <br>Связь с автором: <b><a href="https://t.me/GeniusShitPost"><b>Telegram</b></a> | <a href="https://steamcommunity.com/id/Chumzes/"><b>Steam</b></a></b></sub>
+  <sub>⚠️ <b>Внимание:</b> Проект разрабатывается на добровольной основе и официально распространяется <b>только</b> в данном репозитории. Автором проекта является <a href="https://github.com/MartinDawgor"><b>MartinDawgor</b></a>. Копирование и создание форков разрешены при условии сохранения лицензии и обязательного указания авторства со ссылкой на этот репозиторий. <br>Связь с автором: <b><a href="https://t.me/GeniusShitPost"><b>Telegram</b></a> | <a href="https://steamcommunity.com/id/Chumzes/"><b>Steam</b></a></b></sub>
 </p>
 
 <div align="right"><a href="README.en.md">🇬🇧 English</a></div>

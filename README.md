@@ -1,7 +1,6 @@
-<p align="right"><a href="README.en.md">🇬🇧 English</a></p>
 <h1 align="center">
   <br>
-  <img src="public/icon.png" alt="VACNET Toolkit" width="96">
+  <img src="public/icon.png" alt="VACNET Toolkit" width="100">
   <br>
   VACNET Toolkit Extension
   <br>
@@ -19,6 +18,8 @@
 <p align="center">
   <sub>⚠️ <b>Внимание:</b> Проект официально распространяется <b>только</b> в данном репозитории. Автором проекта является <a href="https://github.com/MartinDawgor"><b>MartinDawgor</b></a>, и все права принадлежат ему. Любая публикация от чужого имени, несанкционированное копирование или перепродажа запрещены для защиты пользователей и репозитория. <br>Связь с автором: <b><a href="https://t.me/GeniusShitPost"><b>Telegram</b></a> | <a href="https://steamcommunity.com/id/Chumzes/"><b>Steam</b></a></b></sub>
 </p>
+
+<div align="right"><a href="README.en.md">🇬🇧 English</a></div>
 
 ---
 

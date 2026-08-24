@@ -80,9 +80,11 @@ body.vacnet-extension-root .vacnet-review-player-host .plyr {
   border-radius: inherit;
   --plyr-color-main: #7eaf3d;
   --plyr-video-background: transparent;
-  --plyr-menu-background: rgba(32, 33, 35, 0.95);
-  --plyr-menu-color: #fff;
-}
+    --plyr-menu-background: rgba(32, 33, 35, 0.95);
+    --plyr-menu-color: #fff;
+    --plyr-tooltip-background: var(--plyr-menu-background);
+    --plyr-tooltip-color: var(--plyr-menu-color);
+  }
 
 body.vacnet-extension-root .vacnet-review-player-host.vacnet-video-stretched video,
 body.vacnet-extension-root .videocontainer .vjs-tech.vacnet-video-stretched {
@@ -111,28 +113,107 @@ body.vacnet-extension-root .plyr__volume {
   position: relative;
 }
 
-body.vacnet-extension-root .plyr__volume::after {
-  content: attr(data-volume);
-  position: absolute;
-  top: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(32, 33, 35, 0.95);
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 13px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
-  white-space: nowrap;
-  font-weight: 500;
-  z-index: 2;
+body.vacnet-extension-root .plyr__volume.plyr__menu .plyr__control[aria-expanded='true'] svg {
+  transform: none;
 }
 
-body.vacnet-extension-root .plyr__volume:hover::after,
-body.vacnet-extension-root .plyr__volume:focus-within::after {
-  opacity: 1;
+body.vacnet-extension-root .vacnet-volume-menu {
+  bottom: 100%;
+  left: calc(50% - 30px);
+  right: auto;
+  width: 60px;
+  white-space: normal;
+}
+
+body.vacnet-extension-root .vacnet-volume-menu::after {
+  right: auto;
+  left: calc(50% - 4px);
+}
+
+body.vacnet-extension-root .vacnet-volume-menu__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: var(--plyr-control-padding, 10px);
+  padding-bottom: calc(var(--plyr-control-padding, 10px) + 8px);
+}
+
+body.vacnet-extension-root .vacnet-volume-menu__percentage {
+  display: block;
+  min-width: 40px;
+  color: var(--plyr-menu-color, #fff);
+  font-size: var(--plyr-font-size-base, 15px);
+  font-weight: var(--plyr-font-weight-regular, 400);
+  line-height: 1;
+  text-align: center;
+}
+
+body.vacnet-extension-root .vacnet-volume-menu__slider-track {
+  position: relative;
+  width: 24px;
+  height: 128px;
+}
+
+body.vacnet-extension-root .vacnet-volume-menu__slider-track::before,
+body.vacnet-extension-root .vacnet-volume-menu__slider-track::after {
+  position: absolute;
+  left: 50%;
+  width: 4px;
+  content: '';
+  transform: translateX(-50%);
+}
+
+body.vacnet-extension-root .vacnet-volume-menu__slider-track::before {
+  top: 0;
+  bottom: 8px;
+  border-radius: 2px;
+  background: var(--plyr-video-range-track-background, rgba(255, 255, 255, 0.3));
+}
+
+body.vacnet-extension-root .vacnet-volume-menu__slider-track::after {
+  bottom: 8px;
+  height: var(--value-height, 0px);
+  border-radius: 2px;
+  background: var(--plyr-range-fill-background, var(--plyr-color-main, #7eaf3d));
+}
+
+body.vacnet-extension-root .vacnet-volume-menu__slider-thumb {
+  position: absolute;
+  bottom: var(--value-height, 0px);
+  left: 50%;
+  z-index: 1;
+  width: 16px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--plyr-range-thumb-background, #fff);
+  box-shadow: var(--plyr-range-thumb-shadow, 0 1px 1px rgba(0, 0, 0, 0.15));
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+body.vacnet-extension-root .vacnet-volume-menu__slider-track:has(.vacnet-volume-menu__slider:focus-visible) {
+  outline: 2px dashed var(--plyr-focus-visible-color, #fff);
+  outline-offset: 2px;
+}
+
+body.vacnet-extension-root .vacnet-volume-menu__slider {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  touch-action: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0 !important;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  opacity: 0;
+  pointer-events: none;
 }
 
 body.vacnet-extension-root .vacnet-review-player-host .plyr__control--overlaid {
@@ -228,8 +309,7 @@ body.vacnet-extension-root .vacnet-trigger-flash {
 
 @media (prefers-reduced-motion: reduce) {
   body.vacnet-extension-root .vacnet-review-player-host video,
-  body.vacnet-extension-root .videocontainer video.vjs-tech,
-  body.vacnet-extension-root .plyr__volume::after {
+  body.vacnet-extension-root .videocontainer video.vjs-tech {
     transition: none;
   }
 }

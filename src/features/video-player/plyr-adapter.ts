@@ -44,7 +44,6 @@ export class PlyrAdapter implements ReviewPlayerPort {
     this.preferences = { ...preferences };
     this.instance.applyPreferences(this.preferences);
     this.instance.element?.classList.toggle('vacnet-video-stretched', preferences.stretchVideo);
-    this.instance.updateVolumeTooltip();
   }
 
   handle(command: PlayerCommand): void {
@@ -131,7 +130,18 @@ export class PlyrAdapter implements ReviewPlayerPort {
   private requireVideo(): HTMLVideoElement {
     const t = this.catalog();
     const markerLabel = t?.triggerMarkerLabel ?? '';
-    const video = this.instance.ensureMounted(this.preferences, this.clip, markerLabel, (element) => this.addVideoListeners(element));
+    const labels = {
+      play: t?.videoJsPlay ?? 'Play',
+      pause: t?.videoJsPause ?? 'Pause',
+      restart: t?.videoJsReset ?? 'Restart',
+      volume: t?.videoJsVolumeLevel ?? 'Volume',
+      settings: t?.playerSettings ?? 'Settings',
+      enterFullscreen: t?.videoJsFullscreen ?? 'Fullscreen',
+      exitFullscreen: t?.videoJsExitFullscreen ?? 'Exit fullscreen',
+      share: t?.shareClip ?? 'Share clip',
+      copied: t?.clipLinkCopied ?? 'Copied!',
+    };
+    const video = this.instance.ensureMounted(this.preferences, this.clip, markerLabel, labels, (element) => this.addVideoListeners(element));
     if (!this.overlayElement && this.instance.element) {
       const overlay = document.createElement('div');
       overlay.className = 'vacnet-trigger-overlay';
@@ -175,8 +185,7 @@ export class PlyrAdapter implements ReviewPlayerPort {
   private readonly onVolumeChange = (): void => {
     const video = this.instance.video;
     if (!video || !this.preferences) return;
-    
-    this.instance.updateVolumeTooltip();
+    this.instance.updateVolumePopup();
 
     if (Math.abs(this.preferences.volume - video.volume) <= 0.001 && this.preferences.muted === video.muted) return;
     this.onPreferences({ volume: video.volume, muted: video.muted });
@@ -184,7 +193,6 @@ export class PlyrAdapter implements ReviewPlayerPort {
 
   private readonly onTimeUpdate = (): void => {
     const video = this.instance.video;
-    
     if (this.overlayElement && this.clip) {
       const timeToTrigger = this.clip.eventTime - (video?.currentTime ?? 0);
       const t = this.catalog();

@@ -483,6 +483,15 @@
   "triggerMarkerLabel": {
     "message": "Триггер VacNet"
   },
+  "shareClip": {
+    "message": "Поделиться клипом"
+  },
+  "clipLinkCopied": {
+    "message": "Скопировано!"
+  },
+  "playerSettings": {
+    "message": "Настройки"
+  },
   "triggerCountdown": {
     "message": "Триггер VacNet через [time]..."
   },

@@ -483,6 +483,15 @@
   "triggerMarkerLabel": {
     "message": "VacNet Trigger"
   },
+  "shareClip": {
+    "message": "Share clip"
+  },
+  "clipLinkCopied": {
+    "message": "Copied!"
+  },
+  "playerSettings": {
+    "message": "Settings"
+  },
   "triggerCountdown": {
     "message": "VacNet Trigger in [time]..."
   },

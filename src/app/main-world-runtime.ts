@@ -113,6 +113,11 @@ export class MainWorldRuntime {
       this.publishSnapshot();
       return;
     }
+    if (command.type === 'set-verdicts') {
+      this.state.setVerdicts(command.verdicts);
+      this.publishSnapshot();
+      return;
+    }
     this.state.setVerdicts(command.verdicts);
     this.state.setError(null);
     void this.workflow.submit(command);

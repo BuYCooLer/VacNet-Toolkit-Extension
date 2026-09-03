@@ -14,6 +14,7 @@ export const WebmMetadataSchema = z.strictObject({
 
 export type ReviewCommand =
   | { type: 'set-verdict'; name: 'aimassist' | 'wallhack' | 'autobhop' | 'bot'; value: 'positive' | 'negative' | 'skip' }
+  | { type: 'set-verdicts'; verdicts: VerdictSelection }
   | { type: 'submit'; verdicts: VerdictSelection; badClip: boolean };
 
 export type PlayerCommand =

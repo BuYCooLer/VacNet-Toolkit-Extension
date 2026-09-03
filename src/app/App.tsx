@@ -99,6 +99,9 @@ const VerdictPanelContainer = ({ onReviewCommand }: { onReviewCommand: (command:
       onChange={(name, value) => {
         onReviewCommand({ type: 'set-verdict', name, value });
       }}
+      onApplyPreset={(verdicts) => {
+        onReviewCommand({ type: 'set-verdicts', verdicts });
+      }}
       onSubmit={(verdicts, badClip) => {
         onReviewCommand({ type: 'submit', verdicts, badClip });
       }}

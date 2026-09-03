@@ -15,7 +15,8 @@
 </p>
 
 <p align="center">
-  <sub>⚠️ <b>Notice:</b> This project is maintained on a voluntary basis and is officially distributed <b>only</b> in this repository. The author is <a href="https://github.com/MartinDawgor"><b>MartinDawgor</b></a>. Copying and forking are allowed provided that the original GPL license is kept and clear attribution with a link to this repository is included. Plagiarism or publishing under a different name is strictly prohibited. <br>Contact the author: <b><a href="https://t.me/GeniusShitPost"><b>Telegram</b></a> | <a href="https://steamcommunity.com/id/Chumzes/"><b>Steam</b></a></b></sub>
+  <sub>⚠️ <b>Original project:</b> <a href="https://github.com/MartinDawgor/VacNet-Toolkit-Extension"><b>MartinDawgor/VacNet-Toolkit-Extension</b></a> by <a href="https://github.com/MartinDawgor"><b>MartinDawgor</b></a>.<br>
+  🍴 <b>Fork & Improvements:</b> <a href="https://github.com/BuYCooLer"><b>BuYCooLer</b></a> — added customizable verdict presets system.</sub>
 </p>
 
 <div align="right"><a href="README.md">🇷🇺 Русский</a></div>
@@ -46,6 +47,13 @@ The portal's default Video.js player is replaced with [Plyr](https://plyr.io/) �
 ### ⚖️ Verdict panel
 
 Four categories — Aim Assist, Wall Hack, Auto Bhop, Bot — each with **Yes** / **Uncertain** / **No**, color-coded and keyboard-driveable. Submitting a verdict **does not reload the page**: the next clip is fetched in the background, preserving playback position and fullscreen. On failure, the extension falls back to standard portal navigation.
+
+### ⚡ Customizable Verdict Presets (fork by @BuYCooLer)
+
+Preset buttons bar directly on the verdict card for fast 1-click evaluation:
+- Default presets: `LEGIT` (all No), `AIM` (Aim Assist Yes), `WH` (WallHack Yes), `RAGE` (Aim + WH + BHop Yes), and `↺` reset button to set all to Uncertain.
+- **Interactive Configuration (⚙):** rename buttons and customize verdict choices for each category (Aim, WH, BHop, Bot) directly from the UI.
+- Presets are automatically persisted in `localStorage`.
 
 ### 🔁 Clip deduplication
 

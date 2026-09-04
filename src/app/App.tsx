@@ -16,6 +16,7 @@ let reportErrorGlobal: (error: unknown) => void = () => {};
 
 interface AppProps {
   footerTarget: HTMLElement | null;
+  headerTarget: HTMLElement | null;
   onReviewCommand: (command: ReviewCommand) => void;
   onClearHistory: () => void;
   onCopyMetrics: () => void;
@@ -57,6 +58,16 @@ const persistPreferences = (
   void updatePreferences(patch).catch(onError);
 };
 
+/*
+ * The toolbar renders into the page header rather than the shadow root, so the
+ * header's own flex row lays it out instead of it floating over the header and
+ * colliding with the account block on narrow viewports. Light-DOM content
+ * cannot use CSS modules, so these are page-level class names styled in
+ * valve-overrides.css.
+ */
+const toolClass = (active: boolean | undefined): string =>
+  active ? 'vacnet-tool vacnet-tool-active' : 'vacnet-tool';
+
 const ToolbarButtons = () => {
   const t = useTranslation();
   const preferences = preferencesSignal;
@@ -64,7 +75,7 @@ const ToolbarButtons = () => {
     <>
       <button
         type="button"
-        class={preferences.value.autoSubmitPreset ? styles.active : undefined}
+        class={toolClass(preferences.value.autoSubmitPreset)}
         aria-label={t('autoSubmitPreset')}
         title={t('autoSubmitPresetHint')}
         aria-pressed={preferences.value.autoSubmitPreset}
@@ -76,7 +87,7 @@ const ToolbarButtons = () => {
       </button>
       <button
         type="button"
-        class={preferences.value.hideNickname ? styles.active : undefined}
+        class={toolClass(preferences.value.hideNickname)}
         aria-label={t('hideNickname')}
         title={t('hideNicknameHint')}
         aria-pressed={preferences.value.hideNickname}
@@ -88,7 +99,7 @@ const ToolbarButtons = () => {
       </button>
       <button
         type="button"
-        class={preferences.value.autoApplyRepeatVerdicts ? styles.active : undefined}
+        class={toolClass(preferences.value.autoApplyRepeatVerdicts)}
         aria-label={t('autoApplyRepeatVerdicts')}
         title={t('autoApplyRepeatVerdictsHint')}
         aria-pressed={preferences.value.autoApplyRepeatVerdicts}
@@ -102,7 +113,7 @@ const ToolbarButtons = () => {
       </button>
       <button
         type="button"
-        class={preferences.value.keepControlsVisible ? styles.active : undefined}
+        class={toolClass(preferences.value.keepControlsVisible)}
         aria-label={t('keepControlsVisible')}
         title={t('keepControlsVisibleHint')}
         aria-pressed={preferences.value.keepControlsVisible}
@@ -115,7 +126,7 @@ const ToolbarButtons = () => {
       </button>
       <button
         type="button"
-        class={preferences.value.stretchVideo ? styles.active : undefined}
+        class={toolClass(preferences.value.stretchVideo)}
         aria-label={t('stretchVideo')}
         title={t('stretchVideo')}
         aria-pressed={preferences.value.stretchVideo}
@@ -129,6 +140,69 @@ const ToolbarButtons = () => {
         </svg>
       </button>
     </>
+  );
+};
+
+/*
+ * Lifetime counter, rendered by the extension instead of leaving Valve's own
+ * .ClipCount visible, so the label can be dropped on narrow viewports where
+ * the header has no room for it. The number alone keeps its meaning and the
+ * full text stays reachable as the title.
+ */
+const ClipCounter = () => {
+  const t = useTranslation();
+  const count = snapshotSignal.value.clip?.clipCount;
+  if (!count) return null;
+  const label = t('clipsLabeled');
+  return (
+    <span class="vacnet-clip-count" title={`${label} ${count}`}>
+      <span class="vacnet-clip-count-label">{label}</span>
+      <span class="vacnet-clip-count-value">{count}</span>
+    </span>
+  );
+};
+
+const HeaderTools = () => {
+  const t = useTranslation();
+  return (
+    <nav class="vacnet-header-tools" aria-label={t('reviewInstructions')}>
+      <div class="vacnet-tool-dropdown">
+        <button type="button" class="vacnet-tool" aria-label={t('reviewInstructions')}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
+          </svg>
+        </button>
+        <div class="vacnet-tool-dropdown-content">
+          <strong>{t('watchClipInstructions')}</strong>
+          <hr />
+          <ul>
+            <li>{t('xrayActive')}</li>
+            <li>{t('verdictTrainingNotice')}</li>
+            <li>{t('uncertainNotice')}</li>
+            <li>{t('clipSelectionNotice')}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="vacnet-tool-dropdown">
+        <button type="button" class="vacnet-tool" aria-label={t('hotkeyTitle')}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10" />
+          </svg>
+        </button>
+        <div class="vacnet-tool-dropdown-content">
+          <strong>{t('hotkeyTitle')}</strong>
+          <hr />
+          <ul>
+            {t('hotkeyHelp').split('·').map((hotkey) => <li key={hotkey}>{hotkey.trim()}</li>)}
+          </ul>
+        </div>
+      </div>
+      <ToolbarButtons />
+      <ClipCounter />
+    </nav>
   );
 };
 
@@ -196,6 +270,7 @@ const DashboardContainer = ({
 
 export const App = ({
   footerTarget,
+  headerTarget,
   onClearHistory,
   onCopyMetrics,
   onError,
@@ -215,43 +290,7 @@ export const App = ({
 
   return (
     <div class={styles.appShell}>
-      <nav class={styles.videoToolbar} aria-label={t('reviewInstructions')}>
-        <div class={styles.hoverDropdown}>
-          <button type="button" aria-label={t('reviewInstructions')}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="16" x2="12" y2="12" />
-              <line x1="12" y1="8" x2="12.01" y2="8" />
-            </svg>
-          </button>
-          <div class={styles.dropdownContent}>
-            <strong>{t('watchClipInstructions')}</strong>
-            <hr />
-            <ul class={styles.dropdownList}>
-              <li>{t('xrayActive')}</li>
-              <li>{t('verdictTrainingNotice')}</li>
-              <li>{t('uncertainNotice')}</li>
-              <li>{t('clipSelectionNotice')}</li>
-            </ul>
-          </div>
-        </div>
-        <div class={styles.hoverDropdown}>
-          <button type="button" aria-label={t('hotkeyTitle')}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="2" />
-              <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10" />
-            </svg>
-          </button>
-          <div class={styles.dropdownContent}>
-            <strong>{t('hotkeyTitle')}</strong>
-            <hr />
-            <ul class={styles.dropdownList}>
-              {t('hotkeyHelp').split('·').map((hotkey) => <li key={hotkey}>{hotkey.trim()}</li>)}
-            </ul>
-          </div>
-        </div>
-        <ToolbarButtons />
-      </nav>
+      {createPortal(<HeaderTools />, headerTarget ?? document.body)}
       {footerTarget ? createPortal(
         <DashboardLinks
           metricsLabel={t('devMetricsTitle')}

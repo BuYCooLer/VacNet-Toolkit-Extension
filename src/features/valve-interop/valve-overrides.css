@@ -16,6 +16,15 @@ body.vacnet-extension-root {
   --vacnet-accent-hover: #c5e696;
   --vacnet-accent-active: #4e7124;
   --vacnet-accent-vivid: #a7d46f;
+  --vacnet-on-accent: #0e1210;
+  --vacnet-tool-bg: #313234;
+  --vacnet-tool-text: #f0f0f0;
+  --vacnet-tool-border: rgba(255, 255, 255, 0.16);
+  --vacnet-tool-hover: rgba(255, 255, 255, 0.1);
+  --vacnet-tool-panel: #202123;
+  --vacnet-tool-muted: #94a3b8;
+  --vacnet-tool-divider: rgba(255, 255, 255, 0.12);
+  --vacnet-tool-shadow: rgba(0, 0, 0, 0.45);
   --vacnet-masker-idle: #c8cdd4;
   --vacnet-masker-track: rgba(255, 255, 255, 0.15);
   background: radial-gradient(circle at 12% 8%, rgba(var(--vacnet-accent-rgb), 0.08), transparent 30%), #0a0a0b;
@@ -116,6 +125,15 @@ body.vacnet-extension-root[data-vacnet-mode="light"] {
   --vacnet-accent-rgb: 63, 98, 18;
   --vacnet-accent-hover: #2f4a0d;
   --vacnet-accent-active: #2f4a0d;
+  --vacnet-on-accent: #ffffff;
+  --vacnet-tool-bg: #eef1f5;
+  --vacnet-tool-text: #1a2230;
+  --vacnet-tool-border: rgba(15, 23, 42, 0.2);
+  --vacnet-tool-hover: rgba(15, 23, 42, 0.07);
+  --vacnet-tool-panel: #ffffff;
+  --vacnet-tool-muted: #4a5565;
+  --vacnet-tool-divider: rgba(15, 23, 42, 0.14);
+  --vacnet-tool-shadow: rgba(15, 23, 42, 0.2);
   --vacnet-masker-idle: #55606f;
   --vacnet-masker-track: rgba(15, 23, 42, 0.18);
   background: radial-gradient(circle at 12% 8%, rgba(var(--vacnet-accent-rgb), 0.07), transparent 30%), #f8fafc;
@@ -213,20 +231,8 @@ body.vacnet-extension-root .verdict-column .verdicts-container {
   display: none !important;
 }
 
-/*
- * The lifetime clip counter stays in Valve's own header slot. Its text is kept
- * current by synchronizeClipCount() on every background clip swap and
- * translated in place by the DOM localizer, so nothing needs to re-render it.
- * Colour is only nudged to match the other secondary header chrome.
- */
-body.vacnet-extension-root .PageHeader .ClipCount {
-  color: #94a3b8 !important;
-  font-size: 13px !important;
-  font-weight: 500 !important;
-}
-
-body.vacnet-extension-root[data-vacnet-mode="light"] .PageHeader .ClipCount {
-  color: #4a5565 !important;
+body.vacnet-extension-root .ClipCount {
+  display: none !important;
 }
 
 body.vacnet-hide-nickname #global_action_menu,
@@ -660,6 +666,186 @@ body.vacnet-extension-root .vacnet-trigger-flash {
 @media (prefers-reduced-motion: reduce) {
   body.vacnet-extension-root .vacnet-review-player-host video,
   body.vacnet-extension-root .videocontainer video.vjs-tech {
+    transition: none;
+  }
+}
+
+/* ---------- Header toolbar ---------- */
+
+/*
+ * The toolbar used to be position:fixed at the top centre of the viewport,
+ * which put it in the same band as the header without participating in its
+ * layout. Below roughly 1300px the account block wrapped and grew leftwards
+ * underneath it. Rendering the toolbar as an ordinary header child removes the
+ * overlap by construction; the flex rules below only decide where in the row
+ * it sits, and are harmless if the header is laid out some other way.
+ */
+body.vacnet-extension-root .PageHeader {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px 16px !important;
+  overflow: visible !important;
+}
+
+body.vacnet-extension-root .PageHeader > * {
+  order: 0;
+}
+
+body.vacnet-extension-root .PageHeader > .vacnet-header-tools {
+  order: 1;
+  margin-left: auto;
+}
+
+body.vacnet-extension-root .PageHeader > .right,
+body.vacnet-extension-root .PageHeader > *:has(.right) {
+  order: 2;
+  margin-left: auto;
+}
+
+body.vacnet-extension-root .vacnet-header-tools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--vacnet-tool-text);
+  font-family: inherit;
+}
+
+body.vacnet-extension-root .vacnet-tool {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  box-sizing: border-box;
+  padding: 0;
+  color: var(--vacnet-tool-text);
+  background: var(--vacnet-tool-bg);
+  border: 1px solid var(--vacnet-tool-border);
+  border-radius: 5px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+}
+
+body.vacnet-extension-root .vacnet-tool:hover:not(.vacnet-tool-active) {
+  background: var(--vacnet-tool-hover);
+}
+
+body.vacnet-extension-root .vacnet-tool-active {
+  color: var(--vacnet-on-accent);
+  background: var(--vacnet-accent);
+  border-color: var(--vacnet-accent);
+}
+
+body.vacnet-extension-root .vacnet-tool:focus-visible {
+  outline: 2px solid var(--vacnet-tool-text);
+  outline-offset: 3px;
+}
+
+body.vacnet-extension-root .vacnet-tool-dropdown {
+  position: relative;
+  display: flex;
+}
+
+body.vacnet-extension-root .vacnet-tool-dropdown-content {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  z-index: 10000;
+  width: max-content;
+  max-width: min(380px, calc(100vw - 32px));
+  transform: translateX(-50%);
+  padding: 14px;
+  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  transition-delay: 0s;
+  color: var(--vacnet-tool-text);
+  background: var(--vacnet-tool-panel);
+  border: 1px solid var(--vacnet-tool-border);
+  border-radius: 7px;
+  box-shadow: 0 14px 36px var(--vacnet-tool-shadow);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+body.vacnet-extension-root .vacnet-tool-dropdown:hover > .vacnet-tool-dropdown-content,
+body.vacnet-extension-root .vacnet-tool-dropdown:focus-within > .vacnet-tool-dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.15s;
+}
+
+body.vacnet-extension-root .vacnet-tool-dropdown-content hr {
+  margin: 9px 0;
+  border: 0;
+  border-top: 1px solid var(--vacnet-tool-divider);
+}
+
+body.vacnet-extension-root .vacnet-tool-dropdown-content ul {
+  margin: 0;
+  padding: 0 0 0 22px;
+  list-style-type: disc;
+  text-align: left;
+}
+
+body.vacnet-extension-root .vacnet-tool-dropdown-content li {
+  margin: 8px 0;
+  color: var(--vacnet-tool-text);
+  line-height: 1.4;
+}
+
+/*
+ * Lifetime counter. The label is the first thing to go when the header runs
+ * out of room, then the counter itself; the number carries most of the meaning
+ * and the full text stays on the title attribute either way.
+ */
+body.vacnet-extension-root .vacnet-clip-count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-left: 6px;
+  padding-left: 12px;
+  border-left: 1px solid var(--vacnet-tool-divider);
+  color: var(--vacnet-tool-muted);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+body.vacnet-extension-root .vacnet-clip-count-value {
+  color: var(--vacnet-accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1400px) {
+  body.vacnet-extension-root .vacnet-clip-count-label {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  body.vacnet-extension-root .vacnet-clip-count {
+    display: none;
+  }
+
+  body.vacnet-extension-root .vacnet-header-tools {
+    gap: 5px;
+  }
+
+  body.vacnet-extension-root .vacnet-tool {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.vacnet-extension-root .vacnet-tool-dropdown-content {
     transition: none;
   }
 }

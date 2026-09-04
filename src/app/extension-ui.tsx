@@ -172,6 +172,7 @@ export const initializeExtensionUi = async (ctx: ContentScriptContext): Promise<
           <TranslationProvider catalog={catalog}>
             <App
               footerTarget={document.querySelector<HTMLElement>('.footer-buttons')}
+              headerTarget={document.querySelector<HTMLElement>('.PageHeader')}
               onReviewCommand={(command) => bus.emit({ type: 'review-command', command })}
               onClearHistory={() => {
                 void clearHistory().catch(reportError);

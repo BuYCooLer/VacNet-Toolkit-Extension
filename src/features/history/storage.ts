@@ -1,4 +1,4 @@
-import { storage } from 'wxt/utils/storage';
+import { storage } from 'wxt/storage';
 import {
 } from '../../entities/clip';
 import {

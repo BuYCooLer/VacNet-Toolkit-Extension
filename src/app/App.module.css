@@ -22,7 +22,7 @@
   box-sizing: border-box;
   color: var(--text);
   background: var(--panel-raised);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--divider-strong);
   border-radius: 5px;
   cursor: pointer;
   list-style: none;
@@ -31,27 +31,25 @@
 
 .videoToolbar>button:hover:not(.active),
 .hoverDropdown>button:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
 }
 
 .videoToolbar>button.active {
-  color: #fff;
-  background: #4e7124;
+  color: var(--on-accent);
+  background: var(--accent);
   border-color: var(--border);
 }
 
 .videoToolbar button:focus-visible,
 .hoverDropdown>button:focus-visible,
 .footerTools a:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
 .hoverDropdown {
   position: relative;
 }
-
-
 
 .hoverDropdown:hover>.dropdownContent,
 .hoverDropdown:focus-within>.dropdownContent {
@@ -74,10 +72,10 @@
   padding: 14px;
   box-sizing: border-box;
   color: var(--text);
-  background: var(--panel);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--overlay);
+  border: 1px solid var(--divider-strong);
   border-radius: 7px;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 14px 36px var(--shadow-color);
   font-size: 13px;
   line-height: 1.4;
   text-align: center;
@@ -86,7 +84,7 @@
 .dropdownContent hr {
   margin: 9px 0;
   border: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--divider);
 }
 
 .dropdownList {
@@ -98,7 +96,7 @@
 
 .dropdownList li {
   margin: 8px 0;
-  color: #dedede;
+  color: var(--text);
   line-height: 1.4;
 }
 
@@ -115,7 +113,7 @@
 
 .footerTools a {
   padding: 0;
-  color: #7eaf3d;
+  color: var(--accent);
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -123,7 +121,7 @@
 }
 
 .footerTools a:hover {
-  color: #fff;
+  color: var(--accent-hover);
 }
 
 @media (max-width: 700px) {

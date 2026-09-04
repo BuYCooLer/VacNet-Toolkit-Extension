@@ -73,7 +73,7 @@ const synchronizeClipCount = (nextDocument: Document): void => {
   const nextCount = nextDocument.querySelector('.ClipCount')?.textContent.match(/\d+/u)?.[0];
   if (!nextCount) return;
   const currentCount = document.querySelector<HTMLElement>('.ClipCount');
-  if (!currentCount) throw new Error('Current Valve page does not contain the clip counter.');
+  if (!currentCount) return;
   const label = currentCount.textContent.trim();
   currentCount.textContent = /\d+/u.test(label) ? label.replace(/\d+/u, nextCount) : `${label} ${nextCount}`;
 };
@@ -154,9 +154,6 @@ export const commitValvePage = (page: ParsedValvePage): void => {
 
 export const validateValveCommit = (page: ParsedValvePage): void => {
   validateForms(page.document);
-  if (page.clip.clipCount && !document.querySelector('.ClipCount')) {
-    throw new Error('Current Valve page does not contain the clip counter required for transition.');
-  }
 };
 
 export const storeInitialValveClip = (clip: ClipData): void => {

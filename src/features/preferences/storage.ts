@@ -1,13 +1,13 @@
 import { z } from 'zod';
-import { storage } from 'wxt/utils/storage';
+import { storage } from 'wxt/storage';
 import {
   defaultPreferences,
   createDefaultPreferences,
   PREFERENCES_STATE_VERSION,
-  PreferencesSchema,
   type Preferences,
   type PreferencesPatch,
 } from '../../entities/preferences';
+import { PreferencesSchema } from '../../entities/preferences.schema';
 
 const PREFERENCES_STORAGE_VERSION = PREFERENCES_STATE_VERSION;
 
@@ -64,6 +64,40 @@ const migrateV5 = (value: unknown): unknown => {
   return value;
 };
 
+const migrateV6 = (value: unknown): unknown => {
+  const parsed = z.record(z.string(), z.unknown()).safeParse(value);
+  if (parsed.success) {
+    const source = parsed.data;
+    return {
+      ...source,
+      language: typeof source.language === 'string' && ['auto', 'ru', 'en'].includes(source.language)
+        ? source.language
+        : defaultPreferences.language,
+      autoSubmitPreset: typeof source.autoSubmitPreset === 'boolean'
+        ? source.autoSubmitPreset
+        : defaultPreferences.autoSubmitPreset,
+      customPresets: Array.isArray(source.customPresets)
+        ? source.customPresets
+        : defaultPreferences.customPresets,
+    };
+  }
+  return value;
+};
+
+const migrateV7 = (value: unknown): unknown => {
+  const parsed = z.record(z.string(), z.unknown()).safeParse(value);
+  if (parsed.success) {
+    const source = parsed.data;
+    return {
+      ...source,
+      theme: typeof source.theme === 'string' && ['green', 'gold', 'blue', 'red', 'purple'].includes(source.theme)
+        ? source.theme
+        : defaultPreferences.theme,
+    };
+  }
+  return value;
+};
+
 const storedPreferences = storage.defineItem<Preferences>('local:preferences', {
   fallback: createDefaultPreferences(),
   version: PREFERENCES_STORAGE_VERSION,
@@ -72,6 +106,8 @@ const storedPreferences = storage.defineItem<Preferences>('local:preferences', {
     3: migrateV3,
     4: async (value: unknown) => migrateV3(await migratePreferences(value)),
     5: async (value: unknown) => PreferencesSchema.parse(migrateV5(migrateV3(await migratePreferences(value)))),
+    6: async (value: unknown) => PreferencesSchema.parse(migrateV6(migrateV5(migrateV3(await migratePreferences(value))))),
+    7: async (value: unknown) => PreferencesSchema.parse(migrateV7(migrateV6(migrateV5(migrateV3(await migratePreferences(value)))))),
   },
 });
 
@@ -106,7 +142,11 @@ const watch = (
   onError: (error: TypeError) => void,
 ): (() => void) =>
   storedPreferences.watch((value) => {
-    const result = PreferencesSchema.safeParse(value);
+    let result = PreferencesSchema.safeParse(value);
+    if (!result.success && typeof value === 'object' && value !== null) {
+      const healed = { ...defaultPreferences, ...(value as Record<string, unknown>) };
+      result = PreferencesSchema.safeParse(healed);
+    }
     if (!result.success) {
       onError(new TypeError('VACNET preferences changed to an invalid value.', { cause: result.error }));
       return;

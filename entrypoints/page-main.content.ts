@@ -1,4 +1,4 @@
-import { defineContentScript } from 'wxt/utils/define-content-script';
+import { defineContentScript } from 'wxt/sandbox';
 import { MainWorldRuntime } from '../src/app/main-world-runtime';
 import { installValveTimerHijacker } from '../src/features/valve-interop/timer-hijacker';
 import { createMainMessageBus } from '../src/shared/message-bus';

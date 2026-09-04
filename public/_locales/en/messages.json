@@ -463,7 +463,7 @@
     "message": "Copy all collected data and metrics for the current video"
   },
   "hotkeyHelp": {
-    "message": "R: clip start · Z: zoom · Space: pause · Enter: submit · Arrows: frame step"
+    "message": "1–9: presets · 0: reset · Enter: submit · Backspace: skip · Space: pause · R: clip start · E: jump to moment · Z: zoom · [ ]: speed · Arrows: frame step"
   },
   "hotkeyTitle": {
     "message": "Hotkeys"
@@ -506,5 +506,149 @@
   },
   "historyMatch": {
     "message": "Match"
+  },
+  "autoSubmitPreset": {
+    "message": "Auto-submit preset"
+  },
+  "autoSubmitPresetHint": {
+    "message": "Submit the verdict immediately when a preset is picked (1 click)"
+  },
+  "presetSettingsTitle": {
+    "message": "Preset settings"
+  },
+  "presetSettingsOpenHint": {
+    "message": "Configure presets"
+  },
+  "presetSettingsCloseHint": {
+    "message": "Close preset settings"
+  },
+  "presetResetHint": {
+    "message": "Reset everything to Uncertain [0]"
+  },
+  "presetNamePlaceholder": {
+    "message": "Name"
+  },
+  "presetResetAll": {
+    "message": "Reset"
+  },
+  "presetDone": {
+    "message": "Done"
+  },
+  "confirmClear": {
+    "message": "Clear"
+  },
+  "confirmCancel": {
+    "message": "Cancel"
+  },
+  "popupStatusActive": {
+    "message": "Overwatch active"
+  },
+  "popupStatusWaiting": {
+    "message": "Awaiting CS2 tab"
+  },
+  "popupTabSettings": {
+    "message": "Settings"
+  },
+  "popupTabHotkeys": {
+    "message": "Hotkeys"
+  },
+  "popupSectionControls": {
+    "message": "Overwatch controls"
+  },
+  "popupSectionAppearance": {
+    "message": "Appearance"
+  },
+  "popupThemeMode": {
+    "message": "Theme mode"
+  },
+  "popupThemeDark": {
+    "message": "Dark"
+  },
+  "popupThemeLight": {
+    "message": "Light"
+  },
+  "popupColorTheme": {
+    "message": "Colour theme"
+  },
+  "popupOpenVacnet": {
+    "message": "Open CS2 Overwatch"
+  },
+  "popupLanguageSelector": {
+    "message": "Language selector"
+  },
+  "popupNavigation": {
+    "message": "Navigation"
+  },
+  "popupHideNicknameDesc": {
+    "message": "Blurs your name in the header — hover to peek"
+  },
+  "popupAutoSubmitDesc": {
+    "message": "Instantly submit the verdict when a preset is clicked"
+  },
+  "popupStretchDesc": {
+    "message": "Fill the player area without letterboxing"
+  },
+  "popupControlsDesc": {
+    "message": "Keep the timeline and buttons always visible"
+  },
+  "themeGreen": {
+    "message": "Tactical green"
+  },
+  "themeGold": {
+    "message": "CS2 gold"
+  },
+  "themeBlue": {
+    "message": "Cyan precision"
+  },
+  "themeRed": {
+    "message": "Crimson alert"
+  },
+  "themePurple": {
+    "message": "Cyber purple"
+  },
+  "popupHotkeysVerdicts": {
+    "message": "Verdicts and presets"
+  },
+  "popupHotkeysPlayback": {
+    "message": "Video playback"
+  },
+  "popupHkPresets": {
+    "message": "Pick a preset"
+  },
+  "popupHkReset": {
+    "message": "Reset the verdict"
+  },
+  "popupHkSubmit": {
+    "message": "Submit the verdict"
+  },
+  "popupHkSkip": {
+    "message": "Skip the clip"
+  },
+  "popupHkPlayPause": {
+    "message": "Play / pause"
+  },
+  "popupHkRestart": {
+    "message": "Back to clip start"
+  },
+  "popupHkJumpEvent": {
+    "message": "Jump to the suspect moment"
+  },
+  "popupHkZoom": {
+    "message": "Toggle 2× zoom"
+  },
+  "popupHkSpeed": {
+    "message": "Playback speed"
+  },
+  "popupHkFrameStep": {
+    "message": "Frame step"
+  },
+  "popupHotkeyHint": {
+    "message": "Hotkeys work on the CS2 clip review page"
+  },
+  "popupRenderError": {
+    "message": "The interface failed to load."
+  },
+  "popupRetry": {
+    "message": "Retry"
   }
 }

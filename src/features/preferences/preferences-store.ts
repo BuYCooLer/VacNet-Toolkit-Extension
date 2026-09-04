@@ -1,10 +1,10 @@
 import { signal } from '@preact/signals';
 import {
   createDefaultPreferences,
-  PreferencesSchema,
   type Preferences,
   type PreferencesPatch,
 } from '../../entities/preferences';
+import { PreferencesSchema } from '../../entities/preferences.schema';
 import { preferencesStorage } from './storage';
 import { sendMessage } from '../../shared/extension-messaging';
 import { STORAGE_COORDINATION_VERSION } from '../../shared/storage-protocol';

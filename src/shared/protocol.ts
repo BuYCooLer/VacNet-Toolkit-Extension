@@ -21,7 +21,9 @@ export type PlayerCommand =
   | { type: 'toggle-playback' }
   | { type: 'restart' }
   | { type: 'toggle-zoom' }
-  | { type: 'step'; direction: -1 | 1 };
+  | { type: 'step'; direction: -1 | 1 }
+  | { type: 'jump-to-event' }
+  | { type: 'change-speed'; delta: -1 | 1 };
 
 export type IsolatedEvent =
   | { type: 'initialize'; catalog: MessageCatalog; preferences: Preferences }

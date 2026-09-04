@@ -1,8 +1,8 @@
 import { effect } from '@preact/signals';
 import { render } from 'preact';
-import { createShadowRootUi } from 'wxt/utils/content-script-ui/shadow-root';
-import type { ContentScriptContext } from 'wxt/utils/content-script-context';
+import { createShadowRootUi, type ContentScriptContext } from 'wxt/client';
 import { DomLocalizer } from '../features/site-translator/dom-localizer';
+import { HeaderNameMasker } from '../features/valve-interop/header-name-masker';
 import { dashboardStore } from '../features/dashboard/dashboard-store';
 import { createMetricsReport } from '../features/dashboard/create-metrics-report';
 import { clearHistory, findHistory, historySignal, importHistory, initializeHistoryStore, recordRepeat, saveHistoryEntry } from '../features/history/history-store';
@@ -50,6 +50,7 @@ const waitForDocument = (ctx: ContentScriptContext): Promise<void> => {
 export const initializeExtensionUi = async (ctx: ContentScriptContext): Promise<void> => {
   const catalog = createCatalog();
   const localizer = new DomLocalizer(catalog);
+  const nameMasker = new HeaderNameMasker();
   const bus = createIsolatedMessageBus();
   let unsubscribeEvents: (() => void) | null = null;
   let stopHistoryFind: (() => void) | null = null;
@@ -66,6 +67,7 @@ export const initializeExtensionUi = async (ctx: ContentScriptContext): Promise<
   const dispose = (): void => {
     if (isDisposed) return;
     isDisposed = true;
+    nameMasker.stop();
     disposePreferencesBridge?.();
     unsubscribeEvents?.();
     stopHistoryFind?.();
@@ -78,7 +80,7 @@ export const initializeExtensionUi = async (ctx: ContentScriptContext): Promise<
     removeUi?.();
     dashboardStore.close();
     resetSnapshot();
-    getBody()?.classList.remove('dashboard-open', 'vacnet-extension-root');
+    getBody()?.classList.remove('dashboard-open', 'vacnet-extension-root', 'vacnet-hide-nickname');
   };
   ctx.onInvalidated(dispose);
 
@@ -105,6 +107,7 @@ export const initializeExtensionUi = async (ctx: ContentScriptContext): Promise<
       void updatePreferences({ dashboardOpen: false }).catch(reportError);
     },
     getSnapshot: () => snapshotSignal.value,
+    getPreferences: () => preferencesSignal.value,
     emitReviewCommand: (command) => bus.emit({ type: 'review-command', command }),
     emitPlayerCommand: (command) => bus.emit({ type: 'player-command', command }),
   });
@@ -124,6 +127,32 @@ export const initializeExtensionUi = async (ctx: ContentScriptContext): Promise<
 
     body.classList.add('vacnet-extension-root');
     localizer.start();
+    nameMasker.start();
+
+    let currentShadowHost: HTMLElement | null = null;
+
+    /*
+     * Mirror the theme preferences onto the shadow host and the page body.
+     * Called from two places on purpose: onMount (the host may appear after
+     * the effect below has already run its first pass, since autoMount waits
+     * for the .verdict-column anchor) and the preferences effect. Without the
+     * onMount call a slow-loading page renders the panel with default styling
+     * until the user happens to change a setting.
+     */
+    const applyTheme = (host: HTMLElement | null): void => {
+      const prefs = preferencesSignal.peek();
+      const theme = prefs.theme || 'green';
+      const themeMode = prefs.themeMode || 'dark';
+      if (host) {
+        host.setAttribute('data-theme', theme);
+        host.setAttribute('data-mode', themeMode);
+      }
+      const target = getBody();
+      if (!target) return;
+      target.setAttribute('data-vacnet-theme', theme);
+      target.setAttribute('data-vacnet-mode', themeMode);
+      target.classList.toggle('vacnet-hide-nickname', Boolean(prefs.hideNickname));
+    };
 
     const ui = await createShadowRootUi<HTMLDivElement>(ctx, {
       name: 'vacnet-extension-ui',
@@ -133,7 +162,9 @@ export const initializeExtensionUi = async (ctx: ContentScriptContext): Promise<
       mode: 'open',
       isolateEvents: ['click', 'pointerdown', 'pointerup'],
       onMount(container, _shadow, shadowHost) {
+        currentShadowHost = shadowHost;
         shadowHost.style.setProperty('display', 'contents', 'important');
+        applyTheme(shadowHost);
         const root = document.createElement('div');
         root.style.setProperty('display', 'contents', 'important');
         container.append(root);
@@ -185,8 +216,9 @@ export const initializeExtensionUi = async (ctx: ContentScriptContext): Promise<
     ui.autoMount();
     messageHandler.sendInitialization();
     disposePreferencesBridge = effect(() => {
-      getBody()?.classList.toggle('vacnet-hide-nickname', preferencesSignal.value.hideNickname);
-      if (!isDisposed) bus.emit({ type: 'preferences', preferences: preferencesSignal.value });
+      const prefs = preferencesSignal.value;
+      applyTheme(currentShadowHost);
+      if (!isDisposed) bus.emit({ type: 'preferences', preferences: prefs });
     });
   } catch (error) {
     dispose();

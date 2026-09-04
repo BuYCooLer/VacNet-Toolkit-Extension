@@ -1,9 +1,192 @@
+/*
+ * Page-level overrides for the Valve portal, injected into the MAIN world.
+ *
+ * Two accent tokens, deliberately distinct:
+ *   --vacnet-accent        page chrome. Follows data-vacnet-mode, so it
+ *                          darkens in light mode to stay readable on a light
+ *                          background.
+ *   --vacnet-accent-vivid  anything drawn ON TOP OF THE VIDEO (Plyr controls,
+ *                          scrubber fill, markers). The video is dark in both
+ *                          modes, so this stays bright always. Darkening it
+ *                          with the page would make the scrubber invisible.
+ */
 body.vacnet-extension-root {
-  --vacnet-surface: #202123;
-  background: radial-gradient(circle at 12% 8%, rgba(110, 163, 29, 0.08), transparent 30%), #0a0a0b;
+  --vacnet-accent: #a7d46f;
+  --vacnet-accent-rgb: 167, 212, 111;
+  --vacnet-accent-hover: #c5e696;
+  --vacnet-accent-active: #4e7124;
+  --vacnet-accent-vivid: #a7d46f;
+  --vacnet-masker-idle: #c8cdd4;
+  --vacnet-masker-track: rgba(255, 255, 255, 0.15);
+  background: radial-gradient(circle at 12% 8%, rgba(var(--vacnet-accent-rgb), 0.08), transparent 30%), #0a0a0b;
   height: 100vh;
   margin: 0;
   overflow: hidden;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+body.vacnet-extension-root[data-vacnet-theme="green"] {
+  --vacnet-accent: #a7d46f;
+  --vacnet-accent-vivid: #a7d46f;
+  --vacnet-accent-rgb: 167, 212, 111;
+  --vacnet-accent-hover: #c5e696;
+  --vacnet-accent-active: #4e7124;
+}
+
+body.vacnet-extension-root[data-vacnet-theme="gold"] {
+  --vacnet-accent: #e5a93c;
+  --vacnet-accent-vivid: #e5a93c;
+  --vacnet-accent-rgb: 229, 169, 60;
+  --vacnet-accent-hover: #fcd34d;
+  --vacnet-accent-active: #b45309;
+}
+
+body.vacnet-extension-root[data-vacnet-theme="blue"] {
+  --vacnet-accent: #38bdf8;
+  --vacnet-accent-vivid: #38bdf8;
+  --vacnet-accent-rgb: 56, 189, 248;
+  --vacnet-accent-hover: #7dd3fc;
+  --vacnet-accent-active: #0369a1;
+}
+
+body.vacnet-extension-root[data-vacnet-theme="red"] {
+  --vacnet-accent: #f87171;
+  --vacnet-accent-vivid: #f87171;
+  --vacnet-accent-rgb: 248, 113, 113;
+  --vacnet-accent-hover: #fca5a5;
+  --vacnet-accent-active: #b91c1c;
+}
+
+body.vacnet-extension-root[data-vacnet-theme="purple"] {
+  --vacnet-accent: #c084fc;
+  --vacnet-accent-vivid: #c084fc;
+  --vacnet-accent-rgb: 192, 132, 252;
+  --vacnet-accent-hover: #e9d5ff;
+  --vacnet-accent-active: #7e22ce;
+}
+
+/* Host page Footer buttons theme adaptation */
+body.vacnet-extension-root .footer-buttons,
+body.vacnet-extension-root .footer-container,
+body.vacnet-extension-root .footerTools {
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+}
+
+body.vacnet-extension-root .footer-buttons a,
+body.vacnet-extension-root .footer-buttons button,
+body.vacnet-extension-root .footer-container a,
+body.vacnet-extension-root .footerTools a {
+  color: #94a3b8 !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: color 0.15s ease, text-shadow 0.15s ease !important;
+  cursor: pointer !important;
+}
+
+/* Primary link ("Отправить отзыв" / "Send Feedback") updates with theme accent */
+body.vacnet-extension-root .footer-buttons a:first-child,
+body.vacnet-extension-root .footer-buttons a[href*="feedback" i] {
+  color: var(--vacnet-accent) !important;
+  font-weight: 600 !important;
+}
+
+/* Hover on all footer links highlights with theme accent and soft glow */
+body.vacnet-extension-root .footer-buttons a:hover,
+body.vacnet-extension-root .footer-buttons button:hover,
+body.vacnet-extension-root .footer-container a:hover,
+body.vacnet-extension-root .footerTools a:hover {
+  color: var(--vacnet-accent-hover, var(--vacnet-accent)) !important;
+  text-decoration: underline !important;
+  text-shadow: 0 0 10px rgba(var(--vacnet-accent-rgb), 0.45) !important;
+}
+
+/* Active dashboard links ("Метрики разработчика" / "Журнал клипов" when modal open) */
+body.vacnet-extension-root .footer-buttons a.vacnet-footer-link-active,
+body.vacnet-extension-root .footerTools a.vacnet-footer-link-active {
+  color: var(--vacnet-accent) !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 8px rgba(var(--vacnet-accent-rgb), 0.5) !important;
+}
+
+/* ---------- Host page light mode ---------- */
+
+/*
+ * Light mode re-points --vacnet-accent (page chrome) at a darkened hue so it
+ * clears 4.5:1 on a light background. --vacnet-accent-vivid is left alone:
+ * it is only ever painted over the video, which stays dark in both modes.
+ */
+body.vacnet-extension-root[data-vacnet-mode="light"] {
+  --vacnet-accent: #3f6212;
+  --vacnet-accent-rgb: 63, 98, 18;
+  --vacnet-accent-hover: #2f4a0d;
+  --vacnet-accent-active: #2f4a0d;
+  --vacnet-masker-idle: #55606f;
+  --vacnet-masker-track: rgba(15, 23, 42, 0.18);
+  background: radial-gradient(circle at 12% 8%, rgba(var(--vacnet-accent-rgb), 0.07), transparent 30%), #f8fafc;
+  color: #1a2230;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"][data-vacnet-theme="green"] {
+  --vacnet-accent: #3f6212;
+  --vacnet-accent-rgb: 63, 98, 18;
+  --vacnet-accent-hover: #2f4a0d;
+  --vacnet-accent-active: #2f4a0d;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"][data-vacnet-theme="gold"] {
+  --vacnet-accent: #92600b;
+  --vacnet-accent-rgb: 146, 96, 11;
+  --vacnet-accent-hover: #6f4808;
+  --vacnet-accent-active: #6f4808;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"][data-vacnet-theme="blue"] {
+  --vacnet-accent: #0369a1;
+  --vacnet-accent-rgb: 3, 105, 161;
+  --vacnet-accent-hover: #024c76;
+  --vacnet-accent-active: #024c76;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"][data-vacnet-theme="red"] {
+  --vacnet-accent: #b3261e;
+  --vacnet-accent-rgb: 179, 38, 30;
+  --vacnet-accent-hover: #8c1d18;
+  --vacnet-accent-active: #8c1d18;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"][data-vacnet-theme="purple"] {
+  --vacnet-accent: #6d28d9;
+  --vacnet-accent-rgb: 109, 40, 217;
+  --vacnet-accent-hover: #551eab;
+  --vacnet-accent-active: #551eab;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons a,
+body.vacnet-extension-root[data-vacnet-mode="light"] .footer-container a,
+body.vacnet-extension-root[data-vacnet-mode="light"] .footerTools a {
+  color: #4a5565 !important;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons a:hover,
+body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons button:hover,
+body.vacnet-extension-root[data-vacnet-mode="light"] .footer-container a:hover,
+body.vacnet-extension-root[data-vacnet-mode="light"] .footerTools a:hover {
+  text-shadow: none !important;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons a.vacnet-footer-link-active,
+body.vacnet-extension-root[data-vacnet-mode="light"] .footerTools a.vacnet-footer-link-active {
+  text-shadow: none !important;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons a:first-child,
+body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons a[href*="feedback" i],
+body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons a.vacnet-footer-link-active,
+body.vacnet-extension-root[data-vacnet-mode="light"] .footerTools a.vacnet-footer-link-active {
+  color: var(--vacnet-accent) !important;
 }
 
 body.vacnet-extension-root .page-container {
@@ -40,9 +223,170 @@ body.vacnet-extension-root .ClipCount {
   display: none !important;
 }
 
-body.vacnet-hide-nickname #account_pulldown {
+body.vacnet-hide-nickname #global_action_menu,
+body.vacnet-hide-nickname #account_pulldown,
+body.vacnet-hide-nickname .account_pulldown,
+body.vacnet-hide-nickname #account_dropdown,
+body.vacnet-hide-nickname .account_dropdown,
+body.vacnet-hide-nickname .account_name,
+body.vacnet-hide-nickname .persona,
+body.vacnet-hide-nickname .persona_name,
+body.vacnet-hide-nickname .playerAvatar,
+body.vacnet-hide-nickname .user_avatar,
+body.vacnet-hide-nickname #header_account,
+body.vacnet-hide-nickname .header_account,
+body.vacnet-hide-nickname .responsive_menu_user_area,
+body.vacnet-hide-nickname .global_header .user_menu,
+body.vacnet-hide-nickname header a[href*="/profiles/"],
+body.vacnet-hide-nickname header a[href*="/id/"],
+body.vacnet-hide-nickname .global_header a[href*="/profiles/"],
+body.vacnet-hide-nickname .global_header a[href*="/id/"],
+body.vacnet-hide-nickname .lcq6hIYMdUKWW8dS3D27y,
+body.vacnet-hide-nickname .wtvh_W5LxQInRbkvMCgBh,
+body.vacnet-hide-nickname ._1eawWM0gwUE2q6wAKLWCg_ {
+  filter: blur(8px) !important;
+  opacity: 0.25 !important;
+  user-select: none !important;
+  pointer-events: none !important;
+  transition: filter 0.2s ease, opacity 0.2s ease !important;
+}
+
+/* Reviewer nickname in the portal header, masked with interactive blur */
+body.vacnet-hide-nickname .vne-name {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+body.vacnet-hide-nickname .vne-name-text {
+  display: inline-block;
+  width: 82px;
+  overflow: hidden;
+  white-space: nowrap;
+  filter: blur(7px);
+  transition: filter 0.15s ease, width 0.2s ease;
+  user-select: none;
+}
+
+body.vacnet-hide-nickname .vne-name.vne-revealed .vne-name-text {
+  width: auto;
+  filter: none;
+  user-select: text;
+}
+
+body.vacnet-hide-nickname .vne-name-eye {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 82px;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  color: var(--vacnet-masker-idle, #c8cdd4);
+  transition: opacity 0.15s ease, color 0.12s ease;
+}
+
+body.vacnet-hide-nickname .vne-name-eye svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
+body.vacnet-hide-nickname .vne-name:hover .vne-name-eye {
+  color: #e8a33d;
+}
+
+body.vacnet-hide-nickname .vne-name.vne-revealed .vne-name-eye {
+  opacity: 0;
+}
+
+body.vacnet-hide-nickname .vne-name-ring {
+  width: 13px;
+  height: 13px;
+  transform: rotate(-90deg);
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+body.vacnet-hide-nickname .vne-name-ring circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+body.vacnet-hide-nickname .vne-name-ring .vne-ring-bg {
+  stroke: var(--vacnet-masker-track, rgba(255, 255, 255, 0.15));
+}
+
+body.vacnet-hide-nickname .vne-name-ring .vne-ring-fg {
+  stroke: #e8a33d;
+  stroke-dasharray: 50.3;
+  stroke-dashoffset: 50.3;
+}
+
+body.vacnet-hide-nickname .vne-name:hover .vne-name-ring {
+  opacity: 1;
+}
+
+body.vacnet-hide-nickname .vne-name:hover .vne-ring-fg {
+  animation: vne-ring 1s linear forwards;
+}
+
+body.vacnet-hide-nickname .vne-name.vne-revealed .vne-name-ring {
+  opacity: 0;
+}
+
+@keyframes vne-ring {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+body.vacnet-hide-nickname .vne-name.vne-locked .vne-name-ring {
+  display: none;
+}
+
+body.vacnet-hide-nickname .vne-name-lock {
+  display: none;
+  color: #e8a33d;
+}
+
+body.vacnet-hide-nickname .vne-name-lock svg {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+body.vacnet-hide-nickname .vne-name.vne-locked .vne-name-lock {
+  display: block;
+}
+
+body.vacnet-hide-nickname .vne-name.vne-locked:hover .vne-name-lock {
+  color: #f2bb63;
+}
+
+/* If hideNickname is disabled in settings */
+body:not(.vacnet-hide-nickname) .vne-name {
+  cursor: default;
+}
+
+body:not(.vacnet-hide-nickname) .vne-name-text {
+  filter: none !important;
+  width: auto !important;
+  overflow: visible !important;
+  user-select: text !important;
+}
+
+body:not(.vacnet-hide-nickname) .vne-name-eye,
+body:not(.vacnet-hide-nickname) .vne-name-ring,
+body:not(.vacnet-hide-nickname) .vne-name-lock {
   display: none !important;
 }
+
 
 body.vacnet-extension-root .videocontainer {
   position: relative;
@@ -78,7 +422,7 @@ body.vacnet-extension-root .vacnet-review-player-host .plyr {
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  --plyr-color-main: #7eaf3d;
+  --plyr-color-main: var(--vacnet-accent-vivid, #a7d46f);
   --plyr-video-background: transparent;
     --plyr-menu-background: rgba(32, 33, 35, 0.95);
     --plyr-menu-color: #fff;
@@ -175,7 +519,7 @@ body.vacnet-extension-root .vacnet-volume-menu__slider-track::after {
   bottom: 8px;
   height: var(--value-height, 0px);
   border-radius: 2px;
-  background: var(--plyr-range-fill-background, var(--plyr-color-main, #7eaf3d));
+  background: var(--plyr-range-fill-background, var(--plyr-color-main, var(--vacnet-accent-vivid)));
 }
 
 body.vacnet-extension-root .vacnet-volume-menu__slider-thumb {

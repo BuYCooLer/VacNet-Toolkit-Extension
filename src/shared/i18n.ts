@@ -1,8 +1,15 @@
 import { z } from 'zod';
-import { browser } from 'wxt/browser';
-import { messageKeys, type MessageKey } from './generated-message-keys';
+import { messageKeys, type MessageKey, buildMessages, type Language } from './messages';
 
-export { messageKeys, type MessageKey } from './generated-message-keys';
+export {
+  messageKeys,
+  getMessage,
+  createTranslate,
+  isRussian,
+  type MessageKey,
+  type Language,
+  type Translate,
+} from './messages';
 
 const catalogShape = Object.fromEntries(
   messageKeys.map((key) => [key, z.string().min(1)]),
@@ -15,15 +22,5 @@ export const MessageCatalogSchema = z.strictObject({
 
 export type MessageCatalog = z.infer<typeof MessageCatalogSchema>;
 
-export type Translate = (key: MessageKey, substitutions?: string | string[]) => string;
-
-export const getMessage: Translate = (key, substitutions) => {
-  const message = browser.i18n.getMessage(key, substitutions);
-  if (!message) throw new Error(`Missing browser translation: ${key}`);
-  return message;
-};
-
-export const createCatalog = (): MessageCatalog => MessageCatalogSchema.parse({
-  ...Object.fromEntries(messageKeys.map((key) => [key, getMessage(key)])),
-  videoJsLocale: browser.i18n.getUILanguage().toLowerCase().startsWith('ru') ? 'ru' : 'en',
-});
+export const createCatalog = (lang: Language = 'auto'): MessageCatalog =>
+  MessageCatalogSchema.parse(buildMessages(lang));

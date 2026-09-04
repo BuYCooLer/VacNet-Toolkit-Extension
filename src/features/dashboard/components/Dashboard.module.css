@@ -10,9 +10,13 @@
   box-sizing: border-box;
   color: var(--text);
   background: var(--panel);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--divider);
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.dashboard:focus {
+  outline: none;
 }
 
 .dashboard>header {
@@ -24,7 +28,7 @@
   box-sizing: border-box;
   color: var(--text);
   background: var(--panel);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--divider);
   border-radius: 8px 8px 0 0;
 }
 
@@ -42,7 +46,7 @@
 
 .dashboard h2 small {
   margin-left: 8px;
-  color: #fff;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 400;
 }
@@ -78,48 +82,99 @@
 
 .action,
 .close {
+  display: grid;
   width: 28px;
   height: 28px;
   padding: 0;
+  place-items: center;
   color: var(--muted);
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--divider-strong);
   border-radius: 4px;
   cursor: pointer;
   line-height: 1;
 }
 
-.action:focus-visible,
-.close:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
-}
-
-.action {
-  display: grid;
-  place-items: center;
-  font-size: 16px;
+.action svg,
+.close svg {
+  width: 15px;
+  height: 15px;
 }
 
 .close {
-  color: #fff;
+  color: var(--text);
   border: 0;
-  font-size: 22px;
 }
 
 .action:hover {
   color: var(--text);
-  border-color: rgba(255, 255, 255, 0.35);
+  background: var(--surface-hover);
+  border-color: var(--accent);
 }
 
 .close:hover {
-  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-strong);
+  background: var(--surface-hover);
 }
 
 .action:focus-visible,
 .close:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
+}
+
+/*
+ * Inline destructive confirmation. Replaces window.confirm(), which cannot be
+ * styled, steals focus out of the dialog, and looks foreign inside the page.
+ */
+.confirm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  color: var(--danger-text);
+  background: var(--danger-fill);
+  border: 1px solid var(--danger-border);
+  border-radius: 6px;
+  font-size: 12.5px;
+}
+
+.confirmActions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 8px;
+}
+
+.confirmButton {
+  padding: 5px 12px;
+  color: var(--text);
+  background: var(--surface-active);
+  border: 1px solid var(--divider-strong);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.confirmButton:hover {
+  border-color: var(--accent);
+}
+
+.confirmButton:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.confirmDanger {
+  color: var(--verdict-pos-on-fill);
+  background: var(--verdict-pos-fill);
+  border-color: var(--verdict-pos-fill);
+}
+
+.confirmDanger:hover {
+  border-color: var(--verdict-pos-on-fill);
 }
 
 @media (max-width: 700px) {

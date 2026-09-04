@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { VerdictSelectionSchema } from './verdict';
+import { VerdictSelectionSchema } from './verdict.schema';
 
 const boundedText = z.string().trim().min(1).max(2_048);
 
@@ -19,7 +19,7 @@ export const ClipDeduplicationSchema = z.enum([
 
 export const ClipIdentitySchema = z.strictObject({
   taskId: boundedText,
-  sourceWebmUrl: z.url().max(8_192),
+  sourceWebmUrl: z.string().url().max(8_192),
   videoId: boundedText,
 });
 

@@ -86,13 +86,6 @@ body.vacnet-extension-root .footerTools a {
   cursor: pointer !important;
 }
 
-/* Primary link ("Отправить отзыв" / "Send Feedback") updates with theme accent */
-body.vacnet-extension-root .footer-buttons a:first-child,
-body.vacnet-extension-root .footer-buttons a[href*="feedback" i] {
-  color: var(--vacnet-accent) !important;
-  font-weight: 600 !important;
-}
-
 /* Hover on all footer links highlights with theme accent and soft glow */
 body.vacnet-extension-root .footer-buttons a:hover,
 body.vacnet-extension-root .footer-buttons button:hover,
@@ -182,8 +175,6 @@ body.vacnet-extension-root[data-vacnet-mode="light"] .footerTools a.vacnet-foote
   text-shadow: none !important;
 }
 
-body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons a:first-child,
-body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons a[href*="feedback" i],
 body.vacnet-extension-root[data-vacnet-mode="light"] .footer-buttons a.vacnet-footer-link-active,
 body.vacnet-extension-root[data-vacnet-mode="light"] .footerTools a.vacnet-footer-link-active {
   color: var(--vacnet-accent) !important;
@@ -218,9 +209,24 @@ body.vacnet-extension-root .video-column {
 
 body.vacnet-extension-root .video-column .top-section,
 body.vacnet-extension-root .verdict-column .top-section-logo,
-body.vacnet-extension-root .verdict-column .verdicts-container,
-body.vacnet-extension-root .ClipCount {
+body.vacnet-extension-root .verdict-column .verdicts-container {
   display: none !important;
+}
+
+/*
+ * The lifetime clip counter stays in Valve's own header slot. Its text is kept
+ * current by synchronizeClipCount() on every background clip swap and
+ * translated in place by the DOM localizer, so nothing needs to re-render it.
+ * Colour is only nudged to match the other secondary header chrome.
+ */
+body.vacnet-extension-root .PageHeader .ClipCount {
+  color: #94a3b8 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+body.vacnet-extension-root[data-vacnet-mode="light"] .PageHeader .ClipCount {
+  color: #4a5565 !important;
 }
 
 body.vacnet-hide-nickname #global_action_menu,

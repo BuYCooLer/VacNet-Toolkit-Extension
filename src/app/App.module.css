@@ -3,103 +3,12 @@
   color: var(--text);
 }
 
-.videoToolbar {
-  position: fixed;
-  top: 8px;
-  left: 50%;
-  display: flex;
-  gap: 8px;
-  transform: translateX(-50%);
-  pointer-events: auto;
-}
-
-.videoToolbar>button,
-.hoverDropdown>button {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  place-items: center;
-  box-sizing: border-box;
-  color: var(--text);
-  background: var(--panel-raised);
-  border: 1px solid var(--divider-strong);
-  border-radius: 5px;
-  cursor: pointer;
-  list-style: none;
-  font-weight: 700;
-}
-
-.videoToolbar>button:hover:not(.active),
-.hoverDropdown>button:hover {
-  background: var(--surface-hover);
-}
-
-.videoToolbar>button.active {
-  color: var(--on-accent);
-  background: var(--accent);
-  border-color: var(--border);
-}
-
-.videoToolbar button:focus-visible,
-.hoverDropdown>button:focus-visible,
-.footerTools a:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-}
-
-.hoverDropdown {
-  position: relative;
-}
-
-.hoverDropdown:hover>.dropdownContent,
-.hoverDropdown:focus-within>.dropdownContent {
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0.15s;
-}
-
-.dropdownContent {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.15s ease, visibility 0.15s ease;
-  transition-delay: 0s;
-  width: max-content;
-  max-width: min(380px, calc(100vw - 32px));
-  transform: translateX(-50%);
-  padding: 14px;
-  box-sizing: border-box;
-  color: var(--text);
-  background: var(--overlay);
-  border: 1px solid var(--divider-strong);
-  border-radius: 7px;
-  box-shadow: 0 14px 36px var(--shadow-color);
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: center;
-}
-
-.dropdownContent hr {
-  margin: 9px 0;
-  border: 0;
-  border-top: 1px solid var(--divider);
-}
-
-.dropdownList {
-  margin: 0;
-  padding: 0 0 0 22px;
-  list-style-type: disc;
-  text-align: left;
-}
-
-.dropdownList li {
-  margin: 8px 0;
-  color: var(--text);
-  line-height: 1.4;
-}
-
+/*
+ * Fallback only. The dashboard links normally portal into the page footer;
+ * this positions them when that container is missing. The toolbar has no such
+ * fallback here — it lives in the page header and is styled in
+ * valve-overrides.css, because portalled content leaves the shadow root.
+ */
 .footerTools {
   position: fixed;
   left: 50%;
@@ -124,20 +33,12 @@
   color: var(--accent-hover);
 }
 
+.footerTools a:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 @media (max-width: 700px) {
-  .videoToolbar {
-    gap: 4px;
-    max-width: calc(100vw - 16px);
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .videoToolbar>button,
-  .hoverDropdown>button {
-    width: 28px;
-    height: 28px;
-  }
-
   .footerTools {
     left: auto;
     right: 10px;

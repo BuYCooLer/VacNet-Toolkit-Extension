@@ -225,16 +225,6 @@
   cursor: wait;
 }
 
-.clipCount {
-  margin-top: auto;
-  padding-top: 10px;
-  border-top: 1px solid var(--divider);
-  color: var(--text-strong);
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-}
-
 @media (max-width: 520px) {
   .panel {
     padding: 12px;

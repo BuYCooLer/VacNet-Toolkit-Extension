@@ -23,7 +23,6 @@ const MAX_PRESET_HOTKEYS = 9;
 interface VerdictPanelProps {
   clip: ClipData | null;
   deduplication: ClipDeduplication | null;
-  clipCount: string | null;
   error: string | null;
   onChange: (name: VerdictName, value: VerdictValue) => void;
   onApplyPreset?: (verdicts: VerdictSelection) => void;
@@ -144,7 +143,6 @@ const CloseIcon = () => (
 
 export const VerdictPanel = ({
   clip,
-  clipCount,
   deduplication,
   error,
   onChange,
@@ -383,7 +381,6 @@ export const VerdictPanel = ({
 
       {submitting && <p class={styles.status} role="status">{t('statusLoadingNextClip')}</p>}
 
-      {clipCount && <div class={styles.clipCount}>{t('clipsLabeled')} {clipCount}</div>}
     </section>
   );
 };

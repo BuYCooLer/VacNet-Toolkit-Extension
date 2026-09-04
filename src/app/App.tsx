@@ -139,7 +139,6 @@ const VerdictPanelContainer = ({ onReviewCommand }: { onReviewCommand: (command:
     <VerdictPanel
       clip={snapshot.value.clip}
       deduplication={snapshot.value.deduplication}
-      clipCount={snapshot.value.clip?.clipCount ?? null}
       error={snapshot.value.error}
       previousVerdicts={snapshot.value.previousVerdicts}
       submitting={snapshot.value.submitting}

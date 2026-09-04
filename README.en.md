@@ -23,7 +23,7 @@
 
 ---
 
-This extension removes the restrictions set by the VacNet site, replaces the player and page preloading, adds a verdict panel with keyboard shortcuts, detects duplicate clips, localizes the interface, and keeps a full history of viewed verdicts, while also adding several tweaks for ease of use.
+This extension removes the restrictions set by the VacNet site, replaces the player and page preloading, adds a verdict panel with keyboard shortcuts and customizable presets, detects duplicate clips, localizes the interface, and keeps a full history of viewed verdicts. It also ships a settings popup, five accent themes in light and dark, and several tweaks for ease of use.
 
 <img src="https://github.com/user-attachments/assets/09926958-2f86-4576-a794-7df56f07ec3d" alt="Main view: player and verdict panel" width="100%">
 
@@ -52,8 +52,20 @@ Four categories — Aim Assist, Wall Hack, Auto Bhop, Bot — each with **Yes** 
 
 Preset buttons bar directly on the verdict card for fast 1-click evaluation:
 - Default presets: `LEGIT` (all No), `AIM` (Aim Assist Yes), `WH` (WallHack Yes), `RAGE` (Aim + WH + BHop Yes), and `↺` reset button to set all to Uncertain.
+- **Keys `1`–`9`** apply the preset in that position; `0` resets every category to Uncertain.
+- **One-click auto-submit:** enable it in the popup or from the toolbar and picking a preset submits the verdict and loads the next clip straight away.
 - **Interactive Configuration (⚙):** rename buttons and customize verdict choices for each category (Aim, WH, BHop, Bot) directly from the UI.
-- Presets are automatically persisted in `localStorage`.
+- Presets live in `browser.storage.local` alongside the other preferences, so they survive clearing site data and are reachable from the popup.
+
+### 🎨 Popup and themes
+
+Clicking the extension icon opens a settings popup, so the toggles are no longer only reachable from the review page itself:
+- **Overwatch controls** — hide nickname, auto-submit preset, stretch video to 16:9, pin the player controls.
+- **Appearance** — light or dark mode plus one of five accents: Tactical Green, CS2 Gold, Cyan Precision, Crimson Alert, Cyber Purple.
+- **Hotkey cheat sheet** — every binding on its own tab.
+- A button that jumps to the review page: it focuses the tab if one is already open, otherwise it opens a new one.
+
+The theme covers everything — verdict panel, history, dashboard, the toolbar in the page header, the player overlays and scrubber. Verdict colours deliberately do not follow the accent: red always means "yes" and green "no", in every theme. Preferences propagate both ways without a reload, so a change in the popup shows up on an open review page and the other way round.
 
 ### 🔁 Clip deduplication
 
@@ -72,9 +84,11 @@ Import and export history as JSON.
 
 Ships with English and Russian locales. The portal's own interface text — questions, buttons, labels, instructions — is translated in real time via a DOM mutation observer with no page reload.
 
+The language follows the browser by default and can be pinned to **RU / EN** from the popup.
+
 ### 🔒 Privacy & safety
 
-The investigator's nickname is hidden by default. All preferences (stretch video, pinned controls, volume, auto-apply duplicates) are stored locally. Every page transition is validated — form actions are verified against the allowed domain, HTML attributes are sanitized, `javascript:` URLs are removed, and heavy and broken Valve algorithms are muted.
+The investigator's nickname is hidden by default: it is blurred, hovering reveals it after a second and clicking pins it open. All preferences (stretch video, pinned controls, volume, auto-apply duplicates, presets, theme and language) are stored locally. Every page transition is validated — form actions are verified against the allowed domain, HTML attributes are sanitized, `javascript:` URLs are removed, and heavy and broken Valve algorithms are muted.
 
 ---
 
@@ -97,11 +111,16 @@ The portal works, but has genuine issues:
 
 | Key | Action |
 | --- | --- |
+| `1` … `9` | Apply the verdict preset in that position |
+| `0` | Reset every category to Uncertain |
+| `Enter` | Submit verdict |
+| `Backspace` | Skip clip |
 | `Space` | Play / Pause |
 | `R` | Restart from clip start |
+| `E` | Jump to the suspect moment |
 | `Z` | Toggle 2× zoom |
+| `[` `]` | Decrease / increase playback speed |
 | `← →` | Step backward / forward one frame |
-| `Enter` | Submit verdict |
 | `Esc` | Close dashboard |
 
 > All hotkeys are physical-key based (`event.code`), so they work correctly on non-US keyboard layouts.
@@ -112,13 +131,13 @@ The portal works, but has genuine issues:
 
 ### Chrome, Edge, Brave, Opera
 
-1. Download the latest release zip from [Releases](https://github.com/MartinDawgor/VacNet-Toolkit-Extension/releases).
+1. Download the latest release zip from [Releases](https://github.com/BuYCooLer/VacNet-Toolkit-Extension/releases).
 2. Open `chrome://extensions`, enable **Developer mode**.
 3. Drag the zip onto the page.
 
 ### Firefox
 
-1. Download the Firefox release zip from [Releases](https://github.com/MartinDawgor/VacNet-Toolkit-Extension/releases).
+1. Download the Firefox release zip from [Releases](https://github.com/BuYCooLer/VacNet-Toolkit-Extension/releases).
 2. Open `about:debugging#/runtime/this-firefox`.
 3. Click **Load Temporary Add-on** and select the zip.
 
@@ -129,6 +148,7 @@ The portal works, but has genuine issues:
 ## Privacy
 
 - **`storage`** — keeps your labeling history and preferences in `browser.storage.local`.
+- **`tabs`** — lets the popup tell whether a review tab is already open and switch to it. Only portal tab URLs are read.
 - **`https://www.counter-strike.net/*`** — the only host permission. The extension does not run anywhere else.
 
 No analytics, no telemetry, no remote code. The only network request the extension makes is posting your verdict to `counter-strike.net` when you confirm it — the same submission the portal would have made itself. Nothing is sent to the developer or any third party.

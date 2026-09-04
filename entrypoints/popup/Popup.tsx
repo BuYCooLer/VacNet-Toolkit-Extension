@@ -21,6 +21,15 @@ const VACNET_CLIPS_URL = 'https://www.counter-strike.net/vacnet/clips';
  */
 const PREFS_STORAGE_KEY = 'preferences';
 
+/* Read from the manifest so the badge cannot drift from the shipped version. */
+const VERSION = (() => {
+  try {
+    return chrome.runtime?.getManifest?.().version ?? '';
+  } catch {
+    return '';
+  }
+})();
+
 interface ThemeOption {
   id: ThemeColor;
   color: string;
@@ -191,7 +200,7 @@ export const Popup = () => {
           <div class={styles.brandInfo}>
             <div class={styles.brandRow}>
               <span class={styles.brandName}>VACNET TOOLKIT</span>
-              <span class={styles.versionBadge}>v2.2.0</span>
+              {VERSION && <span class={styles.versionBadge}>v{VERSION}</span>}
             </div>
             <div class={styles.statusIndicator}>
               <span class={isVacNetTab ? styles.pulseDot : styles.pulseDotInactive} />

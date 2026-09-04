@@ -1,6 +1,6 @@
 {
   "name": "vacnet-toolkit-extension",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "VACNet Toolkit Extension - CS2 VacNet clip analysis tool",
   "private": true,
   "type": "module",

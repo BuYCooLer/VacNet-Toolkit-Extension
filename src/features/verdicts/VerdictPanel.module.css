@@ -4,19 +4,19 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 16px;
+  padding: 12px 14px;
   color: var(--text);
   background: var(--panel);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--divider);
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .panel h1 {
   margin: 0 0 6px;
   padding-bottom: 8px;
   color: var(--accent);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--divider);
   font-size: 15px;
   line-height: 1.35;
   text-align: center;
@@ -24,7 +24,7 @@
 
 .category {
   margin: 0;
-  padding: 8px 0;
+  padding: 5px 0;
   border: 0;
 }
 
@@ -52,8 +52,8 @@
   min-height: 30px;
   place-items: center;
   color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--surface-hover);
+  border: 1px solid var(--divider);
   cursor: pointer;
   font-size: 13.5px;
   font-weight: 600;
@@ -75,28 +75,32 @@
 }
 
 .choice:focus-within {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
+  z-index: 1;
 }
 
 .actions button:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 .positive:has(input:checked) {
-  color: #ffe0e0;
-  background: #9d4144;
+  color: var(--verdict-pos-on-fill);
+  background: var(--verdict-pos-fill);
+  border-color: var(--verdict-pos-fill);
 }
 
 .skip:has(input:checked) {
-  color: #f1f1f1;
-  background: #5b5c60;
+  color: var(--verdict-skip-on-fill);
+  background: var(--verdict-skip-fill);
+  border-color: var(--verdict-skip-fill);
 }
 
 .negative:has(input:checked) {
-  color: #d8ffe4;
-  background: #367a50;
+  color: var(--verdict-neg-on-fill);
+  background: var(--verdict-neg-fill);
+  border-color: var(--verdict-neg-fill);
 }
 
 .infoGrid {
@@ -120,8 +124,8 @@
 
 .previous {
   padding: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--surface-sunken);
+  border: 1px solid var(--divider);
   border-radius: 7px;
 }
 
@@ -146,15 +150,15 @@
 }
 
 .valPositive {
-  color: #ff7676;
+  color: var(--verdict-pos-text);
 }
 
 .valNegative {
-  color: #5ce68b;
+  color: var(--verdict-neg-text);
 }
 
 .valSkip {
-  color: #f1f1f1;
+  color: var(--verdict-skip-text);
 }
 
 .previous dd {
@@ -171,15 +175,15 @@
 }
 
 .error {
-  color: #ffd7d7;
-  background: rgba(157, 65, 68, 0.35);
-  border: 1px solid rgba(255, 159, 159, 0.55);
+  color: var(--danger-text);
+  background: var(--danger-fill);
+  border: 1px solid var(--danger-border);
 }
 
 .status {
   color: var(--text);
-  background: #45464a;
-  border: 1px solid #65666a;
+  background: var(--surface-active);
+  border: 1px solid var(--divider-strong);
 }
 
 .actions {
@@ -191,18 +195,29 @@
 
 .actions button {
   min-height: 36px;
-  color: var(--text);
-  background: linear-gradient(135deg, #7eaf3d, #5d8d22);
+  color: var(--on-accent);
+  background: var(--accent);
   border: 1px solid transparent;
   border-radius: 7px;
   cursor: pointer;
   font-size: 14.5px;
   font-weight: 700;
+  transition: background 0.15s ease;
+}
+
+.actions button:hover:not(:disabled) {
+  background: var(--accent-hover);
 }
 
 .actions button:last-child {
-  background: #45464a;
-  border-color: #65666a;
+  color: var(--text);
+  background: var(--surface-active);
+  border-color: var(--divider-strong);
+}
+
+.actions button:last-child:hover:not(:disabled) {
+  background: var(--surface-active);
+  border-color: var(--accent);
 }
 
 .actions button:disabled {
@@ -212,11 +227,12 @@
 
 .clipCount {
   margin-top: auto;
-  color: #fff;
+  padding-top: 10px;
+  border-top: 1px solid var(--divider);
+  color: var(--text-strong);
   font-size: 14px;
   font-weight: 500;
   text-align: center;
-  padding-top: 10px;
 }
 
 @media (max-width: 520px) {
@@ -234,25 +250,32 @@
   }
 }
 
+/*
+ * Preset row: the preset buttons flex to share the available width while the
+ * two icon buttons (reset, configure) keep a fixed size. Using flex rather
+ * than a fixed four-column grid means any number of presets lays out cleanly.
+ */
 .presets {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) 28px 28px;
+  display: flex;
+  flex-wrap: wrap;
   gap: 5px;
   margin: 6px 0 10px;
   align-items: center;
 }
 
 .presetBtn {
+  flex: 1 1 0;
+  min-width: 44px;
   min-height: 28px;
   padding: 3px 4px;
   color: var(--text);
-  background: var(--panel-raised, rgba(255, 255, 255, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: var(--panel-raised);
+  border: 1px solid var(--divider-strong);
   border-radius: 5px;
   cursor: pointer;
   font-size: 11px;
   font-weight: 700;
-  transition: all 0.15s;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   display: grid;
   place-items: center;
   text-overflow: ellipsis;
@@ -260,14 +283,19 @@
   white-space: nowrap;
 }
 
-.presetBtn:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #fff;
+.presetIconBtn {
+  flex: 0 0 28px;
+  min-width: 28px;
+}
+
+.presetBtn:hover:not(:disabled) {
+  background: var(--surface-active);
+  border-color: var(--accent);
+  color: var(--text-strong);
 }
 
 .presetBtn:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -277,14 +305,20 @@
 }
 
 .presetBtnActive {
-  background: #4e7124 !important;
-  border-color: var(--border, rgba(255, 255, 255, 0.3)) !important;
-  color: #fff !important;
+  background: var(--accent) !important;
+  border-color: var(--border) !important;
+  color: var(--on-accent) !important;
+}
+
+.presetHotkey {
+  margin-right: 2px;
+  opacity: 0.6;
+  font-size: 10px;
 }
 
 .presetSettings {
-  background: rgba(24, 25, 27, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--surface-sunken);
+  border: 1px solid var(--divider-strong);
   border-radius: 7px;
   padding: 10px;
   margin: 0 0 12px;
@@ -305,12 +339,27 @@
 }
 
 .presetSettingsClose {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
   background: none;
   border: none;
-  color: #fff;
+  border-radius: 4px;
+  color: var(--muted);
   cursor: pointer;
-  font-size: 16px;
   line-height: 1;
+}
+
+.presetSettingsClose:hover {
+  background: var(--surface-hover);
+  color: var(--text-strong);
+}
+
+.presetSettingsClose:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .presetRow {
@@ -319,7 +368,13 @@
   gap: 4px;
   margin-bottom: 8px;
   padding-bottom: 8px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid var(--divider);
+}
+
+.presetRow:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .presetRowHeader {
@@ -336,9 +391,9 @@
 }
 
 .presetInput {
-  background: rgba(35, 36, 39, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #fff;
+  background: var(--panel);
+  border: 1px solid var(--divider-strong);
+  color: var(--text);
   border-radius: 4px;
   padding: 3px 6px;
   font-size: 11px;
@@ -346,8 +401,9 @@
   width: 90px;
 }
 
-.presetInput:focus {
-  outline: 1px solid var(--accent);
+.presetInput:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
   border-color: var(--accent);
 }
 
@@ -371,9 +427,9 @@
 }
 
 .presetSelect {
-  background: rgba(35, 36, 39, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #fff;
+  background: var(--panel);
+  border: 1px solid var(--divider-strong);
+  color: var(--text);
   border-radius: 4px;
   padding: 2px;
   font-size: 11px;
@@ -383,16 +439,21 @@
   text-align: center;
 }
 
+.presetSelect:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
 .presetSelectPositive {
-  color: #ff7676;
+  color: var(--verdict-pos-text);
 }
 
 .presetSelectNegative {
-  color: #5ce68b;
+  color: var(--verdict-neg-text);
 }
 
 .presetSelectSkip {
-  color: #a9aaad;
+  color: var(--verdict-skip-text);
 }
 
 .presetActions {
@@ -405,22 +466,31 @@
 .presetActionBtn {
   padding: 4px 8px;
   font-size: 11px;
-  background: #2d2e31;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: var(--panel-raised);
+  border: 1px solid var(--divider-strong);
   color: var(--text);
   border-radius: 4px;
   cursor: pointer;
 }
 
 .presetActionBtn:hover {
-  background: #38393d;
-  color: #fff;
+  background: var(--surface-active);
+  color: var(--text-strong);
+}
+
+.presetActionBtn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .presetActionDone {
-  background: linear-gradient(135deg, #7eaf3d, #5d8d22);
+  background: var(--accent);
   border-color: transparent;
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 700;
 }
 
+.presetActionDone:hover {
+  background: var(--accent-hover);
+  color: var(--on-accent);
+}

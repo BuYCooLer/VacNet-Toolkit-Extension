@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ClipDataSchema, ClipDeduplicationSchema } from './clip';
-import { VerdictSelectionSchema } from './verdict';
+import { VerdictSelectionSchema } from './verdict.schema';
 
 export const HISTORY_STATE_VERSION = 4 as const;
 export const HISTORY_LIMIT = 1_000;

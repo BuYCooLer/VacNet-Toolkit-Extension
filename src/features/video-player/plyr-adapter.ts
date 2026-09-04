@@ -4,7 +4,7 @@ import type { MessageCatalog } from '../../shared/i18n';
 import type { PlayerCommand } from '../../shared/protocol';
 import type { ReviewVideoHostPort } from '../../shared/review-video-host';
 import type { PreferencesChangeHandler, ReviewPlayerPort } from './review-player-port';
-import { PlayerLifecycle, waitForPlyrMetadata, waitForPlyrTargetData } from './player-media';
+import { PlayerLifecycle, combineAbortSignals, waitForPlyrMetadata, waitForPlyrTargetData } from './player-media';
 import { PlyrInstanceController } from './plyr-instance-controller';
 const FRAME_RATE_FALLBACK = 60;
 const PLYR_VERSION = '3.8.4';
@@ -68,6 +68,23 @@ export class PlyrAdapter implements ReviewPlayerPort {
         this.resetStepTimeout();
         return;
       }
+      case 'jump-to-event': {
+        if (this.clip) {
+          const target = Math.max(0, this.clip.eventTime - 1.5);
+          video.currentTime = target;
+          void this.play(video);
+        }
+        return;
+      }
+      case 'change-speed': {
+        const speeds = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3, 4];
+        const currentSpeed = video.playbackRate || 1;
+        let idx = speeds.findIndex((s) => Math.abs(s - currentSpeed) < 0.05);
+        if (idx === -1) idx = 3;
+        const nextIdx = Math.max(0, Math.min(speeds.length - 1, idx + command.delta));
+        video.playbackRate = speeds[nextIdx];
+        return;
+      }
     }
     assertNever(command);
   }
@@ -75,7 +92,7 @@ export class PlyrAdapter implements ReviewPlayerPort {
   async load(source: string, clip: ClipData, signal: AbortSignal): Promise<void> {
     if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
     const generation = this.lifecycle.nextGeneration();
-    const operationSignal = AbortSignal.any([signal, this.lifecycle.signal]);
+    const operationSignal = combineAbortSignals([signal, this.lifecycle.signal]);
     this.clip = clip;
     const video = this.requireVideo();
     this.range = {
@@ -83,6 +100,7 @@ export class PlyrAdapter implements ReviewPlayerPort {
       end: (clip.range.end - clip.range.start) <= 60 ? 999999 : clip.range.end,
     };
     video.pause();
+    this.instance.element?.classList.remove('vacnet-zoom-active');
     this.instance.element?.classList.add('vacnet-video-loading');
 
     try {
@@ -243,7 +261,18 @@ export class PlyrAdapter implements ReviewPlayerPort {
     try {
       await video.play();
     } catch (error) {
-      console.error('[VACNET] Review video playback failed.', error);
+      const errorName = (error as { name?: string })?.name;
+      if (errorName === 'NotAllowedError' || errorName === 'AbortError') {
+        const resumeOnInteraction = () => {
+          video.play().catch(() => {});
+          window.removeEventListener('click', resumeOnInteraction, true);
+          window.removeEventListener('keydown', resumeOnInteraction, true);
+        };
+        window.addEventListener('click', resumeOnInteraction, { once: true, capture: true });
+        window.addEventListener('keydown', resumeOnInteraction, { once: true, capture: true });
+        return;
+      }
+      console.warn('[VACNET] Review video playback failed.', error);
     }
   }
 }

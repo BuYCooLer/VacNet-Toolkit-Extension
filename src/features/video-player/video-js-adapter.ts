@@ -3,7 +3,7 @@ import type { Preferences } from '../../entities/preferences';
 import type { MessageCatalog } from '../../shared/i18n';
 import type { PlayerCommand } from '../../shared/protocol';
 import type { PreferencesChangeHandler, ReviewPlayerPort } from './review-player-port';
-import { PlayerLifecycle, waitForVideoJsMetadata, waitForVideoJsTargetData } from './player-media';
+import { PlayerLifecycle, combineAbortSignals, waitForVideoJsMetadata, waitForVideoJsTargetData } from './player-media';
 import { VideoJsInstanceController } from './video-js-instance-controller';
 
 const assertNever = (value: never): never => {
@@ -11,6 +11,7 @@ const assertNever = (value: never): never => {
 };
 
 export class VideoJsAdapter implements ReviewPlayerPort {
+  private clip: ClipData | null = null;
   private range: ClipRange = { start: 0, end: 0 };
   private preferences: Preferences | null = null;
   private readonly lifecycle = new PlayerLifecycle();
@@ -25,6 +26,7 @@ export class VideoJsAdapter implements ReviewPlayerPort {
     const catalog = this.catalog();
     if (!catalog) throw new Error('Video.js cannot be configured before VACNET initialization.');
 
+    this.clip = clip;
     this.preferences = { ...preferences };
     this.range = { ...clip.range };
     this.instance.configure(catalog, preferences, this.onVolumeChange, this.onTimeUpdate);
@@ -56,6 +58,26 @@ export class VideoJsAdapter implements ReviewPlayerPort {
         this.instance.clampStep(player, this.range, command.direction);
         return;
       }
+      case 'jump-to-event': {
+        if (this.clip) {
+          const target = Math.max(0, this.clip.eventTime - 1.5);
+          player.currentTime(target);
+          void Promise.resolve(player.play()).catch(this.reportPlaybackError);
+        }
+        return;
+      }
+      case 'change-speed': {
+        const video = this.instance.videoElement();
+        if (video) {
+          const speeds = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3, 4];
+          const currentSpeed = video.playbackRate || 1;
+          let idx = speeds.findIndex((s) => Math.abs(s - currentSpeed) < 0.05);
+          if (idx === -1) idx = 3;
+          const nextIdx = Math.max(0, Math.min(speeds.length - 1, idx + command.delta));
+          video.playbackRate = speeds[nextIdx];
+        }
+        return;
+      }
     }
     assertNever(command);
   }
@@ -80,13 +102,15 @@ export class VideoJsAdapter implements ReviewPlayerPort {
   async load(source: string, clip: ClipData, signal: AbortSignal): Promise<void> {
     if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
     const generation = this.lifecycle.nextGeneration();
-    const operationSignal = AbortSignal.any([signal, this.lifecycle.signal]);
+    const operationSignal = combineAbortSignals([signal, this.lifecycle.signal]);
     const player = this.instance.getPlayer();
     if (!player) throw new Error('Valve Video.js player is unavailable.');
+    this.clip = clip;
     this.range = { ...clip.range };
     player.pause();
 
     const video = this.instance.videoElement();
+    video?.classList.remove('vacnet-zoom-active');
     video?.classList.add('vacnet-video-loading');
     try {
       await waitForVideoJsMetadata(player, clip.range.start, source, operationSignal);
@@ -125,6 +149,10 @@ export class VideoJsAdapter implements ReviewPlayerPort {
   };
 
   private readonly reportPlaybackError = (error: unknown): void => {
-    console.error('[VACNET] Video.js playback failed.', error);
+    const errorName = (error as { name?: string })?.name;
+    if (errorName === 'NotAllowedError' || errorName === 'AbortError') {
+      return;
+    }
+    console.warn('[VACNET] Video.js playback failed.', error);
   };
 }

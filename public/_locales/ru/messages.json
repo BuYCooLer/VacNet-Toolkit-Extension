@@ -463,7 +463,7 @@
     "message": "Копировать все собранные данные и метрики текущего видео"
   },
   "hotkeyHelp": {
-    "message": "R: начало клипа · Z: масштаб · Пробел: пауза · Enter: отправить · Стрелки: покадрово"
+    "message": "1–9: пресеты · 0: сброс · Enter: отправить · Backspace: пропустить · Пробел: пауза · R: начало клипа · E: к моменту · Z: масштаб · [ ]: скорость · Стрелки: покадрово"
   },
   "hotkeyTitle": {
     "message": "Горячие клавиши"
@@ -506,5 +506,149 @@
   },
   "historyMatch": {
     "message": "Матч"
+  },
+  "autoSubmitPreset": {
+    "message": "Автоотправка пресета"
+  },
+  "autoSubmitPresetHint": {
+    "message": "Отправлять вердикт сразу при выборе пресета (1 клик)"
+  },
+  "presetSettingsTitle": {
+    "message": "Настройка пресетов"
+  },
+  "presetSettingsOpenHint": {
+    "message": "Настройка пресетов"
+  },
+  "presetSettingsCloseHint": {
+    "message": "Закрыть настройку пресетов"
+  },
+  "presetResetHint": {
+    "message": "Сбросить всё в «Не уверен» [0]"
+  },
+  "presetNamePlaceholder": {
+    "message": "Имя"
+  },
+  "presetResetAll": {
+    "message": "Сбросить"
+  },
+  "presetDone": {
+    "message": "Готово"
+  },
+  "confirmClear": {
+    "message": "Очистить"
+  },
+  "confirmCancel": {
+    "message": "Отмена"
+  },
+  "popupStatusActive": {
+    "message": "Патруль активен"
+  },
+  "popupStatusWaiting": {
+    "message": "Ожидание страницы CS2"
+  },
+  "popupTabSettings": {
+    "message": "Параметры"
+  },
+  "popupTabHotkeys": {
+    "message": "Горячие клавиши"
+  },
+  "popupSectionControls": {
+    "message": "Управление патрулем"
+  },
+  "popupSectionAppearance": {
+    "message": "Внешний вид"
+  },
+  "popupThemeMode": {
+    "message": "Тема оформления"
+  },
+  "popupThemeDark": {
+    "message": "Тёмная"
+  },
+  "popupThemeLight": {
+    "message": "Светлая"
+  },
+  "popupColorTheme": {
+    "message": "Цветовая тема"
+  },
+  "popupOpenVacnet": {
+    "message": "Перейти к патрулю CS2"
+  },
+  "popupLanguageSelector": {
+    "message": "Выбор языка"
+  },
+  "popupNavigation": {
+    "message": "Навигация"
+  },
+  "popupHideNicknameDesc": {
+    "message": "Размывает ник в шапке — наведите, чтобы посмотреть"
+  },
+  "popupAutoSubmitDesc": {
+    "message": "Моментально отправлять вердикт по клику на пресет"
+  },
+  "popupStretchDesc": {
+    "message": "Заполнять область плеера без чёрных полос"
+  },
+  "popupControlsDesc": {
+    "message": "Панель таймлайна и кнопок всегда на виду"
+  },
+  "themeGreen": {
+    "message": "Зелёный"
+  },
+  "themeGold": {
+    "message": "Золотой"
+  },
+  "themeBlue": {
+    "message": "Голубой"
+  },
+  "themeRed": {
+    "message": "Красный"
+  },
+  "themePurple": {
+    "message": "Фиолетовый"
+  },
+  "popupHotkeysVerdicts": {
+    "message": "Вердикты и пресеты"
+  },
+  "popupHotkeysPlayback": {
+    "message": "Управление плеером"
+  },
+  "popupHkPresets": {
+    "message": "Выбор пресетов"
+  },
+  "popupHkReset": {
+    "message": "Сброс вердикта"
+  },
+  "popupHkSubmit": {
+    "message": "Отправить вердикт"
+  },
+  "popupHkSkip": {
+    "message": "Пропустить клип"
+  },
+  "popupHkPlayPause": {
+    "message": "Пауза / воспроизведение"
+  },
+  "popupHkRestart": {
+    "message": "В начало клипа"
+  },
+  "popupHkJumpEvent": {
+    "message": "К подозрительному моменту"
+  },
+  "popupHkZoom": {
+    "message": "Зум 2×"
+  },
+  "popupHkSpeed": {
+    "message": "Скорость воспроизведения"
+  },
+  "popupHkFrameStep": {
+    "message": "Покадровая перемотка"
+  },
+  "popupHotkeyHint": {
+    "message": "Клавиши работают на странице просмотра клипов CS2"
+  },
+  "popupRenderError": {
+    "message": "Не удалось загрузить интерфейс."
+  },
+  "popupRetry": {
+    "message": "Повторить"
   }
 }

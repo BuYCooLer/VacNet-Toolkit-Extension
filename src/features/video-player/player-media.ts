@@ -16,6 +16,21 @@ export class PlayerLifecycle {
   }
 }
 
+export const combineAbortSignals = (signals: AbortSignal[]): AbortSignal => {
+  if (typeof AbortSignal.any === 'function') {
+    return AbortSignal.any(signals);
+  }
+  const controller = new AbortController();
+  for (const signal of signals) {
+    if (signal.aborted) {
+      controller.abort(signal.reason);
+      return controller.signal;
+    }
+    signal.addEventListener('abort', () => controller.abort(signal.reason), { once: true });
+  }
+  return controller.signal;
+};
+
 const waitForVideoData = (video: HTMLVideoElement, target: number, signal: AbortSignal, message: string): Promise<void> =>
   new Promise((resolve, reject) => {
     const cleanup = (): void => {

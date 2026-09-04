@@ -1,10 +1,10 @@
-import { defineBackground } from 'wxt/utils/define-background';
+import { defineBackground } from 'wxt/sandbox';
 import { extractWebmMetadata } from '../src/features/video-player/webm-parser';
 import { onMessage } from '../src/shared/extension-messaging';
 import { historyStorage } from '../src/features/history/storage';
 import { preferencesStorage } from '../src/features/preferences/storage';
 import { HistoryStateSchema } from '../src/entities/history';
-import { PreferencesSchema } from '../src/entities/preferences';
+import { PreferencesSchema } from '../src/entities/preferences.schema';
 import { WebmMetadataSchema } from '../src/shared/protocol';
 import { VersionedHistoryMutationSchema, VersionedPreferencesMutationSchema } from '../src/shared/storage-protocol';
 import { getAllowedWebmUrl } from '../src/shared/url-policy';

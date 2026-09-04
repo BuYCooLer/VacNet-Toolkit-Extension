@@ -10,7 +10,7 @@
   flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
-  scrollbar-color: #5d8d22 var(--panel);
+  scrollbar-color: var(--accent) var(--panel);
   scrollbar-width: thin;
 }
 
@@ -18,7 +18,7 @@
 .empty {
   margin: 0 0 8px;
   background: var(--panel-raised);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--divider);
   border-radius: 5px;
 }
 
@@ -47,7 +47,7 @@
 
 .item[open] summary {
   color: var(--accent);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--divider);
 }
 
 .taskTrigger {
@@ -84,11 +84,11 @@
   max-height: 180px;
   overflow: auto;
   padding: 8px 10px;
-  color: #edf2f7;
-  background: #202123;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  background: var(--overlay);
+  border: 1px solid var(--divider-strong);
   border-radius: 4px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 20px var(--shadow-color);
   font-family: Consolas, monospace;
   font-size: 11px;
   line-height: 1.55;
@@ -114,7 +114,7 @@
   gap: 10px;
   padding-bottom: 9px;
   color: var(--muted);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--divider);
   font-size: 11px;
 }
 
@@ -134,7 +134,7 @@
   padding: 8px 0 9px;
   overflow-wrap: anywhere;
   color: var(--muted);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--divider);
   font-family: Consolas, monospace;
   font-size: 10px;
 }
@@ -149,8 +149,8 @@
 
 .clip {
   padding: 9px 10px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-sunken);
+  border: 1px solid var(--divider);
   border-radius: 4px;
 }
 
@@ -186,11 +186,11 @@
 
 .statusNew,
 .statusExact {
-  color: #b8f2c7;
+  color: var(--verdict-neg-text);
 }
 
 .statusSameVideo {
-  color: #ffb5b5;
+  color: var(--verdict-pos-text);
 }
 
 .clip dl {
@@ -199,7 +199,7 @@
   gap: 4px 10px;
   margin: 9px 0 0;
   padding: 8px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--divider);
   font-size: 11px;
 }
 
@@ -222,20 +222,20 @@
 }
 
 .positive {
-  color: #ffb5b5;
+  color: var(--verdict-pos-text);
 }
 
 .negative {
-  color: #b8f2c7;
+  color: var(--verdict-neg-text);
 }
 
 .skip {
-  color: #85868a;
+  color: var(--verdict-skip-text);
 }
 
 .badClip {
   display: block;
   padding: 8px 12px 0 25px;
-  color: #ff9f9f;
+  color: var(--danger-text);
   font-size: 12px;
 }

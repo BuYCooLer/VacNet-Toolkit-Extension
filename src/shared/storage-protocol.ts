@@ -1,19 +1,14 @@
 import { z } from 'zod';
-import { ClipHistoryEntrySchema, HistoryStateSchema, type ClipHistoryEntry, type HistoryState } from '../entities/history';
-import { type PreferencesPatch } from '../entities/preferences';
+import { ClipHistoryEntrySchema, HistoryStateSchema } from '../entities/history';
+import { STORAGE_COORDINATION_VERSION } from './storage-contract';
 
 export type { HistoryState } from '../entities/history';
-
-export const STORAGE_COORDINATION_VERSION = 1 as const;
-
-export type HistoryMutation =
-  | { type: 'save-entry'; entry: ClipHistoryEntry }
-  | { type: 'record-repeat' }
-  | { type: 'clear' }
-  | { type: 'replace'; state: HistoryState };
-
-export type VersionedHistoryMutation = { version: typeof STORAGE_COORDINATION_VERSION; mutation: HistoryMutation };
-export type VersionedPreferencesMutation = { version: typeof STORAGE_COORDINATION_VERSION; patch: PreferencesPatch };
+export {
+  STORAGE_COORDINATION_VERSION,
+  type HistoryMutation,
+  type VersionedHistoryMutation,
+  type VersionedPreferencesMutation,
+} from './storage-contract';
 
 export const HistoryMutationSchema = z.discriminatedUnion('type', [
   z.strictObject({ type: z.literal('save-entry'), entry: ClipHistoryEntrySchema }),

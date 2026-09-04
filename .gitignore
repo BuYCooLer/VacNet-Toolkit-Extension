@@ -1,3 +1,4 @@
-﻿dist/
+dist/
 .output/
 node_modules/
+.wxt/

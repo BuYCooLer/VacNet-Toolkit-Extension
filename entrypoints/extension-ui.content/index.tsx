@@ -1,4 +1,4 @@
-import { defineContentScript } from 'wxt/utils/define-content-script';
+import { defineContentScript } from 'wxt/sandbox';
 import { initializeExtensionUi } from '../../src/app/extension-ui';
 import './style.css';
 

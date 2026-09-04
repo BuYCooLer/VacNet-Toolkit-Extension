@@ -1,17 +1,188 @@
+/*
+ * VACNET Toolkit — design tokens for the shadow-root UI.
+ *
+ * Every colour used by the extension panels resolves through a token declared
+ * here. Two axes vary independently:
+ *   data-theme  green | gold | blue | red | purple  (accent hue)
+ *   data-mode   dark | light                        (surface polarity)
+ *
+ * Cascade order matters: the light-mode blocks must follow the dark accent
+ * blocks so the single-attribute selectors of equal specificity resolve in
+ * favour of light, and the two-attribute light+theme blocks then win outright.
+ *
+ * Verdict colours (--verdict-*) are deliberately NOT derived from the accent.
+ * Red means "yes, cheating" and green means "no, clean" regardless of theme,
+ * so recolouring the accent must never recolour a verdict.
+ *
+ * All foreground/background pairs are checked against WCAG AA (4.5:1).
+ */
+
 :host {
   all: initial;
+
+  /* Accent — light hues, so text placed on an accent fill is dark. */
   --accent: #a7d46f;
+  --accent-active: #4e7124;
+  --accent-hover: #c5e696;
+  --border: rgba(167, 212, 111, 0.42);
+  --on-accent: #0e1210;
+
+  /* Surfaces */
   --panel: #202123;
   --panel-raised: #313234;
+  --surface-sunken: rgba(255, 255, 255, 0.05);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --surface-active: #45464a;
+  --overlay: #202123;
+
+  /* Text */
   --text: #f0f0f0;
+  --text-strong: #ffffff;
   --muted: #a9aaad;
-  --border: rgba(167, 212, 111, 0.42);
+
+  /* Lines, focus, depth */
+  --divider: rgba(255, 255, 255, 0.1);
+  --divider-strong: rgba(255, 255, 255, 0.16);
+  --focus-ring: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+
+  /* Verdict semantics — fixed hues, independent of --accent. */
+  --verdict-pos-fill: #9d4144;
+  --verdict-pos-on-fill: #ffe0e0;
+  --verdict-pos-text: #ff7676;
+  --verdict-neg-fill: #367a50;
+  --verdict-neg-on-fill: #d8ffe4;
+  --verdict-neg-text: #5ce68b;
+  --verdict-skip-fill: #5b5c60;
+  --verdict-skip-on-fill: #f1f1f1;
+  --verdict-skip-text: #9ea0a6;
+
+  /* Errors */
+  --danger-text: #ffd7d7;
+  --danger-fill: rgba(157, 65, 68, 0.35);
+  --danger-border: rgba(255, 159, 159, 0.55);
+
   color: var(--text) !important;
   color-scheme: dark !important;
-  font-family: Calibri, Candara, Segoe, Geneva, Tahoma, Arial, sans-serif !important;
+  font-family: Stratum2, "Stratum2", "Motiva Sans", "Noto Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif !important;
   font-size: 14px !important;
   line-height: 1.4 !important;
   visibility: visible !important;
+}
+
+/* ---------- Dark mode accents ---------- */
+
+:host([data-theme="green"]) {
+  --accent: #a7d46f;
+  --accent-active: #4e7124;
+  --accent-hover: #c5e696;
+  --border: rgba(167, 212, 111, 0.42);
+}
+
+:host([data-theme="gold"]) {
+  --accent: #f59e0b;
+  --accent-active: #b45309;
+  --accent-hover: #fcd34d;
+  --border: rgba(245, 158, 11, 0.42);
+}
+
+:host([data-theme="blue"]) {
+  --accent: #38bdf8;
+  --accent-active: #0369a1;
+  --accent-hover: #7dd3fc;
+  --border: rgba(56, 189, 248, 0.42);
+}
+
+:host([data-theme="red"]) {
+  --accent: #f87171;
+  --accent-active: #b91c1c;
+  --accent-hover: #fca5a5;
+  --border: rgba(248, 113, 113, 0.42);
+}
+
+:host([data-theme="purple"]) {
+  --accent: #c084fc;
+  --accent-active: #7e22ce;
+  --accent-hover: #e9d5ff;
+  --border: rgba(192, 132, 252, 0.42);
+}
+
+/* ---------- Light mode ---------- */
+
+:host([data-mode="light"]) {
+  /* Accent inverts polarity: the hue darkens so it can carry white text. */
+  --accent: #3f6212;
+  --accent-active: #2f4a0d;
+  --accent-hover: #4d7718;
+  --border: rgba(63, 98, 18, 0.38);
+  --on-accent: #ffffff;
+
+  --panel: #ffffff;
+  --panel-raised: #eef1f5;
+  --surface-sunken: #eff2f6;
+  --surface-hover: rgba(15, 23, 42, 0.06);
+  --surface-active: #dfe3e9;
+  --overlay: #ffffff;
+
+  --text: #1a2230;
+  --text-strong: #0b0f16;
+  --muted: #55606f;
+
+  --divider: rgba(15, 23, 42, 0.12);
+  --divider-strong: rgba(15, 23, 42, 0.2);
+  --focus-ring: #0b0f16;
+  --shadow-color: rgba(15, 23, 42, 0.16);
+
+  --verdict-pos-fill: #b3261e;
+  --verdict-pos-on-fill: #ffffff;
+  --verdict-pos-text: #b3261e;
+  --verdict-neg-fill: #1b6b45;
+  --verdict-neg-on-fill: #ffffff;
+  --verdict-neg-text: #15653f;
+  --verdict-skip-fill: #59606b;
+  --verdict-skip-on-fill: #ffffff;
+  --verdict-skip-text: #55606f;
+
+  --danger-text: #8c1d18;
+  --danger-fill: rgba(179, 38, 30, 0.1);
+  --danger-border: rgba(179, 38, 30, 0.4);
+
+  color-scheme: light !important;
+}
+
+:host([data-mode="light"][data-theme="green"]) {
+  --accent: #3f6212;
+  --accent-active: #2f4a0d;
+  --accent-hover: #4d7718;
+  --border: rgba(63, 98, 18, 0.38);
+}
+
+:host([data-mode="light"][data-theme="gold"]) {
+  --accent: #92600b;
+  --accent-active: #6f4808;
+  --accent-hover: #a86f0d;
+  --border: rgba(146, 96, 11, 0.38);
+}
+
+:host([data-mode="light"][data-theme="blue"]) {
+  --accent: #0369a1;
+  --accent-active: #024c76;
+  --accent-hover: #047ab9;
+  --border: rgba(3, 105, 161, 0.38);
+}
+
+:host([data-mode="light"][data-theme="red"]) {
+  --accent: #b3261e;
+  --accent-active: #8c1d18;
+  --accent-hover: #c92c23;
+  --border: rgba(179, 38, 30, 0.38);
+}
+
+:host([data-mode="light"][data-theme="purple"]) {
+  --accent: #6d28d9;
+  --accent-active: #551eab;
+  --accent-hover: #7c31f0;
+  --border: rgba(109, 40, 217, 0.38);
 }
 
 button,

@@ -13,7 +13,7 @@ import {
   type ClipHistoryEntry,
   type HistoryState,
 } from '../../entities/history';
-import { VerdictSelectionSchema } from '../../entities/verdict';
+import { VerdictSelectionSchema } from '../../entities/verdict.schema';
 
 const LegacyRangeSchema = z.object({
   start: z.number().finite().nonnegative().catch(0),

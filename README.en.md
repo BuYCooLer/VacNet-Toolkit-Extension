@@ -27,11 +27,6 @@ This extension removes the restrictions set by the VacNet site, replaces the pla
 
 <img src="https://github.com/user-attachments/assets/09926958-2f86-4576-a794-7df56f07ec3d" alt="Main view: player and verdict panel" width="100%">
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/737b0a4a-b2d1-40c6-b6f1-7c266fd195c2" alt="History dashboard with match cards" width="40%">
-  <img src="https://github.com/user-attachments/assets/8b5f0dc0-e3d6-41cb-b7d5-34b07403fe05" alt="History details" width="40%">
-</p>
-
 ---
 
 ## Features

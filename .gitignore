@@ -2,3 +2,11 @@ dist/
 .output/
 node_modules/
 .wxt/
+
+# Local reference copies of Valve's own page bundles and screenshots.
+# Not part of this project and not ours to redistribute.
+csgo_react_main.css
+csgo_react_main.js
+libraries.js
+manifest.js
+screenshot_main.png

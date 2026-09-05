@@ -16,7 +16,7 @@
 
 <p align="center">
   <sub>⚠️ <b>Оригинальный проект:</b> <a href="https://github.com/MartinDawgor/VacNet-Toolkit-Extension"><b>MartinDawgor/VacNet-Toolkit-Extension</b></a> (автор: <a href="https://github.com/MartinDawgor"><b>MartinDawgor</b></a>).<br>
-  🍴 <b>Форк и доработка:</b> <a href="https://github.com/BuYCooLer"><b>BuYCooLer</b></a> — добавлена система настраиваемых пресетов вердиктов.</sub>
+  🍴 <b>Форк и доработка:</b> <a href="https://github.com/BuYCooLer"><b>BuYCooLer</b></a> — пресеты вердиктов с горячими клавишами, попап с настройками, светлая тема и пять цветовых схем.</sub>
 </p>
 
 <div align="right"><a href="README.en.md">🇬🇧 English</a></div>

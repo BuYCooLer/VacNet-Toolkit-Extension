@@ -16,7 +16,7 @@
 
 <p align="center">
   <sub>⚠️ <b>Original project:</b> <a href="https://github.com/MartinDawgor/VacNet-Toolkit-Extension"><b>MartinDawgor/VacNet-Toolkit-Extension</b></a> by <a href="https://github.com/MartinDawgor"><b>MartinDawgor</b></a>.<br>
-  🍴 <b>Fork & Improvements:</b> <a href="https://github.com/BuYCooLer"><b>BuYCooLer</b></a> — added customizable verdict presets system.</sub>
+  🍴 <b>Fork & Improvements:</b> <a href="https://github.com/BuYCooLer"><b>BuYCooLer</b></a> — verdict presets with hotkeys, a settings popup, light mode and five accent themes.</sub>
 </p>
 
 <div align="right"><a href="README.md">🇷🇺 Русский</a></div>

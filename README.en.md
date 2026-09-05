@@ -25,6 +25,8 @@
 
 This extension removes the restrictions set by the VacNet site, replaces the player and page preloading, adds a verdict panel with keyboard shortcuts and customizable presets, detects duplicate clips, localizes the interface, and keeps a full history of viewed verdicts. It also ships a settings popup, five accent themes in light and dark, and several tweaks for ease of use.
 
+<img src="docs/main-view.jpg" alt="Main view: player, header toolbar and the verdict panel with presets" width="100%">
+
 <p align="center">
   <img src="docs/popup-settings.png" alt="Popup: settings, theme mode and accent colours" width="45%">
   <img src="docs/popup-hotkeys.png" alt="Popup: hotkey cheat sheet" width="45%">
